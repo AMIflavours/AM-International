@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import { UPLOADS_ENABLED, UPLOADS_OFF_MESSAGE } from "@/lib/uploadSwitch";
+import { uploadFile } from "@/lib/uploadClient";
+import MediaDialog from "@/components/admin/MediaDialog";
 
 const MAX_SIDE = 2200; // longest side in pixels, plenty for full width hero images
 const QUALITY = 0.82; // WebP quality: visually the same as the original for photos and logos
@@ -42,6 +44,12 @@ export default function ImageField({ label, value, onChange, hint }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
+  const [dialog, setDialog] = useState(null); // null | "preview" | "library"
+
+  // Used by the popup for its own Replace and Upload new buttons.
+  async function uploadOptimised(file, onProgress) {
+    return uploadFile(await optimise(file), onProgress);
+  }
 
   async function handleFile(event) {
     const original = event.target.files?.[0];
@@ -53,12 +61,9 @@ export default function ImageField({ label, value, onChange, hint }) {
     setBusy(true);
     try {
       const file = await optimise(original);
-      const body = new FormData();
-      body.append("file", file);
-      const res = await fetch("/api/admin/upload", { method: "POST", body });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.url) throw new Error(json.error || "Upload failed.");
-      onChange(json.url);
+      const url = await uploadFile(file);
+      onChange(url);
+      setDialog("preview"); // show the uploaded picture in the popup
       if (file !== original) setNote(`Optimised: ${formatSize(original.size)} to ${formatSize(file.size)}`);
     } catch (e) {
       setError(e.message || "Upload failed.");
@@ -71,14 +76,19 @@ export default function ImageField({ label, value, onChange, hint }) {
     <div>
       {label ? <p className="mb-1.5 text-xs font-medium uppercase tracking-wide text-ink/60">{label}</p> : null}
       <div className="flex flex-wrap items-center gap-4 rounded-lg border border-dashed border-black/15 bg-white p-3">
-        <div className="flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-md bg-black/5 text-xs text-ink/40">
+        <button
+          type="button"
+          onClick={() => setDialog(value ? "preview" : "library")}
+          aria-label={value ? "Preview image" : "Choose an image"}
+          className="flex h-20 w-32 shrink-0 items-center justify-center overflow-hidden rounded-md bg-black/5 text-xs text-ink/40 transition hover:ring-2 hover:ring-brand-orange/50"
+        >
           {value ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={value} alt="" className="h-full w-full object-cover" />
           ) : (
             "No image"
           )}
-        </div>
+        </button>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap gap-2">
             <button
@@ -93,6 +103,14 @@ export default function ImageField({ label, value, onChange, hint }) {
             >
               {busy ? "Optimising and uploading..." : value ? "Replace image" : "Upload image"}
             </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => setDialog("library")}
+              className="rounded-lg border border-black/10 px-3 py-1.5 text-sm transition hover:bg-black/5 disabled:opacity-60"
+            >
+              Media library
+            </button>
             {value ? (
               <button type="button" onClick={() => onChange("")} className="rounded-lg px-3 py-1.5 text-sm text-red-600 transition hover:bg-red-50">
                 Remove
@@ -105,6 +123,16 @@ export default function ImageField({ label, value, onChange, hint }) {
         </div>
       </div>
       <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={handleFile} className="hidden" />
+      <MediaDialog
+        open={dialog !== null}
+        view={dialog || "preview"}
+        onClose={() => setDialog(null)}
+        value={value}
+        kinds={["image"]}
+        onSelect={(url) => onChange(url)}
+        onRemove={() => onChange("")}
+        upload={uploadOptimised}
+      />
     </div>
   );
 }
