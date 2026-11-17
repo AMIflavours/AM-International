@@ -1,0 +1,1913 @@
+[
+ {
+  "path": "images/events/iftech-2026.webp",
+  "name": "iftech-2026.webp",
+  "kind": "image",
+  "size": 184662,
+  "date": "2026-11-06T13:01:32.000Z"
+ },
+ {
+  "path": "images/events/iftech-2027.webp",
+  "name": "iftech-2027.webp",
+  "kind": "image",
+  "size": 38896,
+  "date": "2026-11-06T13:01:32.000Z"
+ },
+ {
+  "path": "documents/downloads/company-introduction-booklet.pdf",
+  "name": "company-introduction-booklet.pdf",
+  "kind": "pdf",
+  "size": 3303095,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/events/iftech-2027.jpeg",
+  "name": "iftech-2027.jpeg",
+  "kind": "image",
+  "size": 235233,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/cup-cake/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 198433,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/detergents/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 17241,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/detergents/logo-2.jpeg",
+  "name": "logo-2.jpeg",
+  "kind": "image",
+  "size": 88655,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/detergents/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 443765,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/detergents/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 706510,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/leather-car-care/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 6821,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/soap/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 219704,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/insights/insights-banner.jpeg",
+  "name": "insights-banner.jpeg",
+  "kind": "image",
+  "size": 721585,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/insights/insights-banner.webp",
+  "name": "insights-banner.webp",
+  "kind": "image",
+  "size": 13139106,
+  "date": "2026-11-06T11:41:56.000Z"
+ },
+ {
+  "path": "images/flavours-page/confectionery/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 33038,
+  "date": "2026-11-06T03:56:56.000Z"
+ },
+ {
+  "path": "documents/downloads/company-brochure-2026.pdf",
+  "name": "company-brochure-2026.pdf",
+  "kind": "pdf",
+  "size": 8202983,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "documents/downloads/corporate-brochure-2026.pdf",
+  "name": "corporate-brochure-2026.pdf",
+  "kind": "pdf",
+  "size": 6103692,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "documents/downloads/flavours-product-list-2026.pdf",
+  "name": "flavours-product-list-2026.pdf",
+  "kind": "pdf",
+  "size": 2456211,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "documents/downloads/fragrances-product-list-2026.pdf",
+  "name": "fragrances-product-list-2026.pdf",
+  "kind": "pdf",
+  "size": 1515723,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "images/team/ahmad-mustafa.jpg",
+  "name": "ahmad-mustafa.jpg",
+  "kind": "image",
+  "size": 442776,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "images/team/mahad-bin-hassan.jpg",
+  "name": "mahad-bin-hassan.jpg",
+  "kind": "image",
+  "size": 208063,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "images/team/muhammad-ali-hassan.jpg",
+  "name": "muhammad-ali-hassan.jpg",
+  "kind": "image",
+  "size": 629866,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "images/team/nayyer-hameed.jpg",
+  "name": "nayyer-hameed.jpg",
+  "kind": "image",
+  "size": 265579,
+  "date": "2026-11-06T03:31:36.000Z"
+ },
+ {
+  "path": "images/events/beauty-asia.webp",
+  "name": "beauty-asia.webp",
+  "kind": "image",
+  "size": 91004,
+  "date": "2026-11-05T15:34:05.000Z"
+ },
+ {
+  "path": "images/events/events-banner.webp",
+  "name": "events-banner.webp",
+  "kind": "image",
+  "size": 199570,
+  "date": "2026-11-05T15:34:05.000Z"
+ },
+ {
+  "path": "images/events/annual-event.webp",
+  "name": "annual-event.webp",
+  "kind": "image",
+  "size": 163682,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours-page/cup-cake/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 6092,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours-page/soap/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 5574,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours-page/soap/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 2492,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours-page/soap/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 3612,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/cup-cake/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 61814,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/cup-cake/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 4130,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/cup-cake/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3741,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/cup-cake/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 6092,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/cup-cake/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 3029,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/soap/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 49014,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/soap/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 5564,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/soap/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 5574,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/soap/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 2492,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours/soap/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 3612,
+  "date": "2026-11-05T14:17:14.000Z"
+ },
+ {
+  "path": "images/flavours-page/baby-skin-care/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 46180,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baby-skin-care/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 5255,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baby-skin-care/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3925,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baby-skin-care/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 3138,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baby-skin-care/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 4207,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baking/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 53714,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baking/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 2181,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baking/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 4605,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baking/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 2544,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baking/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 5484,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/baking/logo-5.png",
+  "name": "logo-5.png",
+  "kind": "image",
+  "size": 2712,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/beverages/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 81892,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/beverages/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 6639,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/beverages/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 4813,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/beverages/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 6142,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/beverages/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 8230,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/confectionery/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 52290,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/confectionery/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 3500,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/confectionery/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 4548,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/confectionery/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 4717,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/confectionery/logo-5.png",
+  "name": "logo-5.png",
+  "kind": "image",
+  "size": 4150,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cosmetics/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 47942,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cosmetics/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 4055,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cosmetics/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 5235,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cosmetics/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 3110,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cosmetics/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 6651,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cup-cake/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 61814,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cup-cake/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 4130,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/cup-cake/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3741,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/detergents/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 49014,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/detergents/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 4700,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/frozen-food/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 42340,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/frozen-food/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 5004,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/frozen-food/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3569,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/frozen-food/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 5298,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/frozen-food/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 5637,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/home-care/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 42356,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/home-care/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 2198,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/home-care/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3280,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/home-care/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 3561,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/home-care/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 3500,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/leather-car-care/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 50796,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/leather-car-care/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3720,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/leather-car-care/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 4815,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/leather-car-care/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 2962,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/paints/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 52644,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/paints/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 3545,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/paints/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 4256,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/paints/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 4462,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/paints/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 3867,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/pharmaceutical/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 47172,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/pharmaceutical/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 3418,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/pharmaceutical/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 3442,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/pharmaceutical/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 4832,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/pharmaceutical/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 2285,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/savory/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 66152,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/savory/logo-1.png",
+  "name": "logo-1.png",
+  "kind": "image",
+  "size": 7111,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/savory/logo-2.png",
+  "name": "logo-2.png",
+  "kind": "image",
+  "size": 7077,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/savory/logo-3.png",
+  "name": "logo-3.png",
+  "kind": "image",
+  "size": 6551,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/savory/logo-4.png",
+  "name": "logo-4.png",
+  "kind": "image",
+  "size": 5939,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "images/flavours-page/soap/card.webp",
+  "name": "card.webp",
+  "kind": "image",
+  "size": 49014,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193233041-6a1be82f.webp",
+  "name": "1793193233041-6a1be82f.webp",
+  "kind": "image",
+  "size": 23016,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193237831-19c9090a.webp",
+  "name": "1793193237831-19c9090a.webp",
+  "kind": "image",
+  "size": 24994,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193243114-72b3626d.webp",
+  "name": "1793193243114-72b3626d.webp",
+  "kind": "image",
+  "size": 29976,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193249102-ee6672d3.webp",
+  "name": "1793193249102-ee6672d3.webp",
+  "kind": "image",
+  "size": 27574,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193254976-9ec2f3e7.webp",
+  "name": "1793193254976-9ec2f3e7.webp",
+  "kind": "image",
+  "size": 25732,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193259691-4bc5f901.webp",
+  "name": "1793193259691-4bc5f901.webp",
+  "kind": "image",
+  "size": 25732,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193270702-74214a05.webp",
+  "name": "1793193270702-74214a05.webp",
+  "kind": "image",
+  "size": 36080,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193280599-0cf69ce0.webp",
+  "name": "1793193280599-0cf69ce0.webp",
+  "kind": "image",
+  "size": 23108,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193286831-60ff33d5.webp",
+  "name": "1793193286831-60ff33d5.webp",
+  "kind": "image",
+  "size": 26566,
+  "date": "2026-11-05T13:50:33.000Z"
+ },
+ {
+  "path": "uploads/about/1793615498510-dec1cd13.webp",
+  "name": "1793615498510-dec1cd13.webp",
+  "kind": "image",
+  "size": 25312,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/about/1793615501891-665d6b8e.webp",
+  "name": "1793615501891-665d6b8e.webp",
+  "kind": "image",
+  "size": 14968,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/about/1793615685485-6930b3b5.webp",
+  "name": "1793615685485-6930b3b5.webp",
+  "kind": "image",
+  "size": 15864,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/about/1793706518718-1ee116fe.webp",
+  "name": "1793706518718-1ee116fe.webp",
+  "kind": "image",
+  "size": 12266,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client1.webp",
+  "name": "client1.webp",
+  "kind": "image",
+  "size": 948,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client10.webp",
+  "name": "client10.webp",
+  "kind": "image",
+  "size": 3634,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client11.webp",
+  "name": "client11.webp",
+  "kind": "image",
+  "size": 2810,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client12.webp",
+  "name": "client12.webp",
+  "kind": "image",
+  "size": 3380,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client13.webp",
+  "name": "client13.webp",
+  "kind": "image",
+  "size": 2788,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client14.webp",
+  "name": "client14.webp",
+  "kind": "image",
+  "size": 1610,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client15.webp",
+  "name": "client15.webp",
+  "kind": "image",
+  "size": 3096,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client16.webp",
+  "name": "client16.webp",
+  "kind": "image",
+  "size": 2916,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client17.webp",
+  "name": "client17.webp",
+  "kind": "image",
+  "size": 2524,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client18.webp",
+  "name": "client18.webp",
+  "kind": "image",
+  "size": 3106,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client19.webp",
+  "name": "client19.webp",
+  "kind": "image",
+  "size": 3086,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client2.webp",
+  "name": "client2.webp",
+  "kind": "image",
+  "size": 3450,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client20.webp",
+  "name": "client20.webp",
+  "kind": "image",
+  "size": 2342,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client21.webp",
+  "name": "client21.webp",
+  "kind": "image",
+  "size": 3356,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client22.webp",
+  "name": "client22.webp",
+  "kind": "image",
+  "size": 1556,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client23.webp",
+  "name": "client23.webp",
+  "kind": "image",
+  "size": 2426,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client24.webp",
+  "name": "client24.webp",
+  "kind": "image",
+  "size": 2594,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client25.webp",
+  "name": "client25.webp",
+  "kind": "image",
+  "size": 1686,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client26.webp",
+  "name": "client26.webp",
+  "kind": "image",
+  "size": 3358,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client27.webp",
+  "name": "client27.webp",
+  "kind": "image",
+  "size": 2180,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client28.webp",
+  "name": "client28.webp",
+  "kind": "image",
+  "size": 1942,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client29.webp",
+  "name": "client29.webp",
+  "kind": "image",
+  "size": 2186,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client3.webp",
+  "name": "client3.webp",
+  "kind": "image",
+  "size": 2928,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client30.webp",
+  "name": "client30.webp",
+  "kind": "image",
+  "size": 2114,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client31.webp",
+  "name": "client31.webp",
+  "kind": "image",
+  "size": 3538,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client32.webp",
+  "name": "client32.webp",
+  "kind": "image",
+  "size": 2260,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client4.webp",
+  "name": "client4.webp",
+  "kind": "image",
+  "size": 2922,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client5.webp",
+  "name": "client5.webp",
+  "kind": "image",
+  "size": 4094,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client6.webp",
+  "name": "client6.webp",
+  "kind": "image",
+  "size": 2554,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client7.webp",
+  "name": "client7.webp",
+  "kind": "image",
+  "size": 3686,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client8.webp",
+  "name": "client8.webp",
+  "kind": "image",
+  "size": 2366,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/clients/client9.webp",
+  "name": "client9.webp",
+  "kind": "image",
+  "size": 2440,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193296752-fe302da2.webp",
+  "name": "1793193296752-fe302da2.webp",
+  "kind": "image",
+  "size": 30506,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/flavours-fragrances/ar/1793193301106-7b58bf67.webp",
+  "name": "1793193301106-7b58bf67.webp",
+  "kind": "image",
+  "size": 28896,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/insights/from-a-job-to-a-business-our-story/cover.webp",
+  "name": "cover.webp",
+  "kind": "image",
+  "size": 112184,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/insights/mindset-behind-manufacturing-growth/cover.webp",
+  "name": "cover.webp",
+  "kind": "image",
+  "size": 70680,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/insights/quality-over-price-flavour-manufacturer/cover.webp",
+  "name": "cover.webp",
+  "kind": "image",
+  "size": 58980,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/insights/standards-not-shortcuts-brand-building/cover.webp",
+  "name": "cover.webp",
+  "kind": "image",
+  "size": 77588,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/media/certifications/1792686382797-c82d7e85.webp",
+  "name": "1792686382797-c82d7e85.webp",
+  "kind": "image",
+  "size": 6510,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/media/certifications/1792686410852-71ce3435.webp",
+  "name": "1792686410852-71ce3435.webp",
+  "kind": "image",
+  "size": 8058,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/media/certifications/1792686624933-1aec9763.webp",
+  "name": "1792686624933-1aec9763.webp",
+  "kind": "image",
+  "size": 6546,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/media/certifications/1792686637802-f0ae2ebd.webp",
+  "name": "1792686637802-f0ae2ebd.webp",
+  "kind": "image",
+  "size": 8578,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "uploads/media/certifications/1792686652639-b4adb6b2.webp",
+  "name": "1792686652639-b4adb6b2.webp",
+  "kind": "image",
+  "size": 8638,
+  "date": "2026-11-05T13:24:12.000Z"
+ },
+ {
+  "path": "images/events/iftech-banner.webp",
+  "name": "iftech-banner.webp",
+  "kind": "image",
+  "size": 96830,
+  "date": "2026-11-05T12:23:46.000Z"
+ },
+ {
+  "path": "videos/process-1.mp4",
+  "name": "process-1.mp4",
+  "kind": "video",
+  "size": 1438905,
+  "date": "2026-11-05T11:47:12.000Z"
+ },
+ {
+  "path": "videos/process-2.mp4",
+  "name": "process-2.mp4",
+  "kind": "video",
+  "size": 2156141,
+  "date": "2026-11-05T11:47:12.000Z"
+ },
+ {
+  "path": "videos/process-3.mp4",
+  "name": "process-3.mp4",
+  "kind": "video",
+  "size": 1662783,
+  "date": "2026-11-05T11:47:12.000Z"
+ },
+ {
+  "path": "videos/process-4.mp4",
+  "name": "process-4.mp4",
+  "kind": "video",
+  "size": 799653,
+  "date": "2026-11-05T11:47:12.000Z"
+ },
+ {
+  "path": "videos/process-5.mp4",
+  "name": "process-5.mp4",
+  "kind": "video",
+  "size": 2334265,
+  "date": "2026-11-05T11:47:12.000Z"
+ },
+ {
+  "path": "videos/promo.mp4",
+  "name": "promo.mp4",
+  "kind": "video",
+  "size": 10333524,
+  "date": "2026-11-05T10:09:55.000Z"
+ },
+ {
+  "path": "videos/flavours-card.mp4",
+  "name": "flavours-card.mp4",
+  "kind": "video",
+  "size": 1682047,
+  "date": "2026-11-05T09:55:46.000Z"
+ },
+ {
+  "path": "videos/fragrances-card.mp4",
+  "name": "fragrances-card.mp4",
+  "kind": "video",
+  "size": 1951854,
+  "date": "2026-11-05T09:55:46.000Z"
+ },
+ {
+  "path": "videos/hero-2.mp4",
+  "name": "hero-2.mp4",
+  "kind": "video",
+  "size": 8194073,
+  "date": "2026-11-05T09:30:53.000Z"
+ },
+ {
+  "path": "videos/hero-intro.mp4",
+  "name": "hero-intro.mp4",
+  "kind": "video",
+  "size": 358517,
+  "date": "2026-11-05T09:30:53.000Z"
+ },
+ {
+  "path": "images/clients-hd/1.webp",
+  "name": "1.webp",
+  "kind": "image",
+  "size": 9090,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/10.webp",
+  "name": "10.webp",
+  "kind": "image",
+  "size": 9044,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/11.webp",
+  "name": "11.webp",
+  "kind": "image",
+  "size": 22752,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/12.webp",
+  "name": "12.webp",
+  "kind": "image",
+  "size": 9820,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/13.webp",
+  "name": "13.webp",
+  "kind": "image",
+  "size": 12388,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/14.webp",
+  "name": "14.webp",
+  "kind": "image",
+  "size": 10604,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/15.webp",
+  "name": "15.webp",
+  "kind": "image",
+  "size": 15142,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/16.webp",
+  "name": "16.webp",
+  "kind": "image",
+  "size": 12734,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/17.webp",
+  "name": "17.webp",
+  "kind": "image",
+  "size": 12360,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/18.webp",
+  "name": "18.webp",
+  "kind": "image",
+  "size": 8144,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/19.webp",
+  "name": "19.webp",
+  "kind": "image",
+  "size": 8914,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/2.webp",
+  "name": "2.webp",
+  "kind": "image",
+  "size": 13538,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/20.webp",
+  "name": "20.webp",
+  "kind": "image",
+  "size": 9128,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/3.webp",
+  "name": "3.webp",
+  "kind": "image",
+  "size": 12992,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/4.webp",
+  "name": "4.webp",
+  "kind": "image",
+  "size": 16574,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/5.webp",
+  "name": "5.webp",
+  "kind": "image",
+  "size": 13510,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/6.webp",
+  "name": "6.webp",
+  "kind": "image",
+  "size": 15242,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/7.webp",
+  "name": "7.webp",
+  "kind": "image",
+  "size": 9448,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/8.webp",
+  "name": "8.webp",
+  "kind": "image",
+  "size": 8300,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/clients-hd/9.webp",
+  "name": "9.webp",
+  "kind": "image",
+  "size": 8694,
+  "date": "2026-10-22T15:44:27.000Z"
+ },
+ {
+  "path": "images/logo/am-international-logo.png",
+  "name": "am-international-logo.png",
+  "kind": "image",
+  "size": 133955,
+  "date": "2026-10-19T17:02:40.000Z"
+ },
+ {
+  "path": "images/downloads/doc-icon.png",
+  "name": "doc-icon.png",
+  "kind": "image",
+  "size": 9901,
+  "date": "2026-10-16T09:28:11.000Z"
+ },
+ {
+  "path": "documents/downloads/sample-document.pdf",
+  "name": "sample-document.pdf",
+  "kind": "pdf",
+  "size": 1664,
+  "date": "2026-10-16T09:11:22.000Z"
+ },
+ {
+  "path": "images/downloads/downloads-hero.jpg",
+  "name": "downloads-hero.jpg",
+  "kind": "image",
+  "size": 156745,
+  "date": "2026-10-16T09:11:22.000Z"
+ },
+ {
+  "path": "images/process/process-hero.jpg",
+  "name": "process-hero.jpg",
+  "kind": "image",
+  "size": 299200,
+  "date": "2026-10-15T12:45:08.000Z"
+ },
+ {
+  "path": "images/flavours/baby-care.webp",
+  "name": "baby-care.webp",
+  "kind": "image",
+  "size": 10500,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/bakery.webp",
+  "name": "bakery.webp",
+  "kind": "image",
+  "size": 75676,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/beverages.webp",
+  "name": "beverages.webp",
+  "kind": "image",
+  "size": 29026,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/car-care.webp",
+  "name": "car-care.webp",
+  "kind": "image",
+  "size": 44734,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/confectionery.webp",
+  "name": "confectionery.webp",
+  "kind": "image",
+  "size": 76736,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/cosmetics.webp",
+  "name": "cosmetics.webp",
+  "kind": "image",
+  "size": 60372,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/dairy.webp",
+  "name": "dairy.webp",
+  "kind": "image",
+  "size": 33626,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/detergents-soap.webp",
+  "name": "detergents-soap.webp",
+  "kind": "image",
+  "size": 79920,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/food-band.webp",
+  "name": "food-band.webp",
+  "kind": "image",
+  "size": 39508,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/fragrance-band.webp",
+  "name": "fragrance-band.webp",
+  "kind": "image",
+  "size": 37670,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/home-care.webp",
+  "name": "home-care.webp",
+  "kind": "image",
+  "size": 21372,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/paints-industrial.webp",
+  "name": "paints-industrial.webp",
+  "kind": "image",
+  "size": 23412,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/pharmaceuticals.webp",
+  "name": "pharmaceuticals.webp",
+  "kind": "image",
+  "size": 39020,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/flavours/savoury-snacks.webp",
+  "name": "savoury-snacks.webp",
+  "kind": "image",
+  "size": 52802,
+  "date": "2026-10-13T12:31:35.000Z"
+ },
+ {
+  "path": "images/contact/contact-form-bg.jpg",
+  "name": "contact-form-bg.jpg",
+  "kind": "image",
+  "size": 91278,
+  "date": "2026-10-08T17:06:34.000Z"
+ },
+ {
+  "path": "images/contact/contact-map.webp",
+  "name": "contact-map.webp",
+  "kind": "image",
+  "size": 65110,
+  "date": "2026-10-08T17:06:34.000Z"
+ },
+ {
+  "path": "images/events/event-1.jpg",
+  "name": "event-1.jpg",
+  "kind": "image",
+  "size": 619984,
+  "date": "2026-10-07T14:26:51.000Z"
+ },
+ {
+  "path": "images/events/event-2.jpg",
+  "name": "event-2.jpg",
+  "kind": "image",
+  "size": 95737,
+  "date": "2026-10-07T14:26:51.000Z"
+ },
+ {
+  "path": "images/events/event-hero.jpg",
+  "name": "event-hero.jpg",
+  "kind": "image",
+  "size": 150911,
+  "date": "2026-10-07T14:26:51.000Z"
+ },
+ {
+  "path": "images/about/about-hero.jpg",
+  "name": "about-hero.jpg",
+  "kind": "image",
+  "size": 297258,
+  "date": "2026-10-07T13:13:34.000Z"
+ },
+ {
+  "path": "documents/ami-catalogue.pdf",
+  "name": "ami-catalogue.pdf",
+  "kind": "pdf",
+  "size": 13481411,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "documents/certificates/FSSC Intertek AMI.pdf",
+  "name": "FSSC Intertek AMI.pdf",
+  "kind": "pdf",
+  "size": 290894,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "documents/certificates/IHC Halal Certificate-AM INTERNATIONAL-2026-2027.pdf",
+  "name": "IHC Halal Certificate-AM INTERNATIONAL-2026-2027.pdf",
+  "kind": "pdf",
+  "size": 879062,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "documents/certificates/isoqar14001.pdf",
+  "name": "isoqar14001.pdf",
+  "kind": "pdf",
+  "size": 57718,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "documents/certificates/isoqar9001.pdf",
+  "name": "isoqar9001.pdf",
+  "kind": "pdf",
+  "size": 58133,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "documents/certificates/punjabfoodauth.pdf",
+  "name": "punjabfoodauth.pdf",
+  "kind": "pdf",
+  "size": 196173,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "images/certifications/Mask group (1).png",
+  "name": "Mask group (1).png",
+  "kind": "image",
+  "size": 56561,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "images/certifications/Mask group (2).png",
+  "name": "Mask group (2).png",
+  "kind": "image",
+  "size": 59034,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "images/certifications/Mask group (3).png",
+  "name": "Mask group (3).png",
+  "kind": "image",
+  "size": 55884,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "images/certifications/Mask group (4).png",
+  "name": "Mask group (4).png",
+  "kind": "image",
+  "size": 62318,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "images/certifications/Mask group.png",
+  "name": "Mask group.png",
+  "kind": "image",
+  "size": 42635,
+  "date": "2026-10-05T15:13:33.000Z"
+ },
+ {
+  "path": "images/events/in-1.png",
+  "name": "in-1.png",
+  "kind": "image",
+  "size": 410101,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/events/Rectangle 240649825.png",
+  "name": "Rectangle 240649825.png",
+  "kind": "image",
+  "size": 270062,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/insights/in-1.png",
+  "name": "in-1.png",
+  "kind": "image",
+  "size": 410101,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/insights/Rectangle 240649770 (1).png",
+  "name": "Rectangle 240649770 (1).png",
+  "kind": "image",
+  "size": 159224,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/insights/Rectangle 240649819.png",
+  "name": "Rectangle 240649819.png",
+  "kind": "image",
+  "size": 191245,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/insights/Rectangle 240649822.png",
+  "name": "Rectangle 240649822.png",
+  "kind": "image",
+  "size": 181745,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/insights/Rectangle 240649823.png",
+  "name": "Rectangle 240649823.png",
+  "kind": "image",
+  "size": 175038,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/insights/Rectangle 240649825.png",
+  "name": "Rectangle 240649825.png",
+  "kind": "image",
+  "size": 270062,
+  "date": "2026-10-02T11:29:04.000Z"
+ },
+ {
+  "path": "images/expertise/new1.png",
+  "name": "new1.png",
+  "kind": "image",
+  "size": 333134,
+  "date": "2026-10-01T17:17:27.000Z"
+ },
+ {
+  "path": "images/expertise/new2.png",
+  "name": "new2.png",
+  "kind": "image",
+  "size": 364090,
+  "date": "2026-10-01T17:17:27.000Z"
+ },
+ {
+  "path": "images/insights/insight-1.jpg",
+  "name": "insight-1.jpg",
+  "kind": "image",
+  "size": 48106,
+  "date": "2026-10-01T13:51:47.000Z"
+ },
+ {
+  "path": "images/insights/insight-2.jpg",
+  "name": "insight-2.jpg",
+  "kind": "image",
+  "size": 67397,
+  "date": "2026-10-01T13:51:47.000Z"
+ },
+ {
+  "path": "images/insights/insight-3.jpg",
+  "name": "insight-3.jpg",
+  "kind": "image",
+  "size": 19043,
+  "date": "2026-10-01T13:51:47.000Z"
+ },
+ {
+  "path": "images/insights/insight-4.jpg",
+  "name": "insight-4.jpg",
+  "kind": "image",
+  "size": 83867,
+  "date": "2026-10-01T13:51:47.000Z"
+ },
+ {
+  "path": "images/clients/1.png",
+  "name": "1.png",
+  "kind": "image",
+  "size": 19792,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/10.png",
+  "name": "10.png",
+  "kind": "image",
+  "size": 15991,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/11.png",
+  "name": "11.png",
+  "kind": "image",
+  "size": 36159,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/12.png",
+  "name": "12.png",
+  "kind": "image",
+  "size": 18123,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/13.png",
+  "name": "13.png",
+  "kind": "image",
+  "size": 21776,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/14.png",
+  "name": "14.png",
+  "kind": "image",
+  "size": 22057,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/15.png",
+  "name": "15.png",
+  "kind": "image",
+  "size": 21963,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/16.png",
+  "name": "16.png",
+  "kind": "image",
+  "size": 23350,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/17.png",
+  "name": "17.png",
+  "kind": "image",
+  "size": 19679,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/18.png",
+  "name": "18.png",
+  "kind": "image",
+  "size": 15672,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/19.png",
+  "name": "19.png",
+  "kind": "image",
+  "size": 15140,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/2.png",
+  "name": "2.png",
+  "kind": "image",
+  "size": 21714,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/20.png",
+  "name": "20.png",
+  "kind": "image",
+  "size": 14000,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/3.png",
+  "name": "3.png",
+  "kind": "image",
+  "size": 22242,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/4.png",
+  "name": "4.png",
+  "kind": "image",
+  "size": 23282,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/5.png",
+  "name": "5.png",
+  "kind": "image",
+  "size": 21642,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/6.png",
+  "name": "6.png",
+  "kind": "image",
+  "size": 24288,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/7.png",
+  "name": "7.png",
+  "kind": "image",
+  "size": 16139,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/8.png",
+  "name": "8.png",
+  "kind": "image",
+  "size": 14754,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/9.png",
+  "name": "9.png",
+  "kind": "image",
+  "size": 14918,
+  "date": "2026-09-30T13:49:04.000Z"
+ },
+ {
+  "path": "images/clients/client-1.png",
+  "name": "client-1.png",
+  "kind": "image",
+  "size": 3627,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-2.png",
+  "name": "client-2.png",
+  "kind": "image",
+  "size": 3200,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-3.png",
+  "name": "client-3.png",
+  "kind": "image",
+  "size": 3492,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-4.png",
+  "name": "client-4.png",
+  "kind": "image",
+  "size": 2396,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-5.png",
+  "name": "client-5.png",
+  "kind": "image",
+  "size": 2878,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-6.png",
+  "name": "client-6.png",
+  "kind": "image",
+  "size": 3198,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-7.png",
+  "name": "client-7.png",
+  "kind": "image",
+  "size": 3041,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/clients/client-8.png",
+  "name": "client-8.png",
+  "kind": "image",
+  "size": 3598,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/events/event-3.jpg",
+  "name": "event-3.jpg",
+  "kind": "image",
+  "size": 42697,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/expertise/custom-solutions.jpg",
+  "name": "custom-solutions.jpg",
+  "kind": "image",
+  "size": 70266,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/expertise/flavours.jpg",
+  "name": "flavours.jpg",
+  "kind": "image",
+  "size": 30760,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/expertise/fragrances.jpg",
+  "name": "fragrances.jpg",
+  "kind": "image",
+  "size": 58243,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/expertise/ingredients.jpg",
+  "name": "ingredients.jpg",
+  "kind": "image",
+  "size": 123871,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/hero/hero-bg.jpg",
+  "name": "hero-bg.jpg",
+  "kind": "image",
+  "size": 294228,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/process/process-bg.jpg",
+  "name": "process-bg.jpg",
+  "kind": "image",
+  "size": 187934,
+  "date": "2026-09-29T17:09:56.000Z"
+ },
+ {
+  "path": "images/process/process-bg.png",
+  "name": "process-bg.png",
+  "kind": "image",
+  "size": 1004605,
+  "date": "2026-09-29T17:09:56.000Z"
+ }
+]
