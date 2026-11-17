@@ -81,6 +81,7 @@ function Icon({ name, className = "" }) {
 const TOP = [
   { href: "/admin", label: "Dashboard", icon: "home" },
   { href: "/admin/enquiries", label: "Enquiries", icon: "enquiries", section: "enquiries" },
+  { href: "/admin/files", label: "All files", icon: "media", section: "media" },
 ];
 const ADMIN = [
   { href: "/admin/team", label: "Team and access", icon: "team", ownerOnly: true },
