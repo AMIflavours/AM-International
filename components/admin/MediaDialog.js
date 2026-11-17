@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { kindOfUrl } from "@/lib/uploadClient";
+import { describeUsage, fetchUsage } from "@/lib/mediaClient";
 
 const KIND_LABEL = { image: "Images", pdf: "PDFs", video: "Videos" };
 const ACCEPT = {
@@ -70,6 +71,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
   const [progress, setProgress] = useState(null);
   const [toDelete, setToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
+  const [usage, setUsage] = useState(null); // null while checking, then a list of places
   const inputRef = useRef(null);
   const closeRef = useRef(null);
   const dialogRef = useRef(null);
@@ -326,7 +328,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
                       {it.source !== "site" ? (
                         <button
                           type="button"
-                          onClick={() => setToDelete(it)}
+                          onClick={() => { setUsage(null); setToDelete(it); fetchUsage([it.url]).then((u) => setUsage(describeUsage(u[it.url]))); }}
                           disabled={busy || deleting}
                           aria-label={`Delete ${it.name}`}
                           title="Delete"
@@ -360,7 +362,17 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
             <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl">
               <h3 id="del-title" className="text-base font-semibold text-ink">Delete this file?</h3>
               <p className="mt-1 truncate text-sm text-ink/70" title={toDelete.name}>{toDelete.name}</p>
-              <p className="mt-2 text-sm leading-relaxed text-ink/60">It is removed from storage for good and cannot be brought back. If a page uses it, that spot will show empty.</p>
+              {usage === null ? (
+                <p className="mt-2 text-sm text-ink/55" role="status">Checking where it is used...</p>
+              ) : usage.length ? (
+                <div className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900" role="alert">
+                  <p className="font-medium">This file is in use on the website:</p>
+                  <ul className="mt-1 max-h-32 list-disc space-y-0.5 overflow-auto ps-5">{usage.map((p, i) => <li key={i}>{p}</li>)}</ul>
+                </div>
+              ) : (
+                <p className="mt-2 rounded-lg bg-black/5 px-3 py-2 text-sm text-ink/70">Not used on any page right now.</p>
+              )}
+              <p className="mt-3 text-sm leading-relaxed text-ink/60">This deletes the file from storage for good and removes it from the website wherever it is used. It cannot be brought back.</p>
               <div className="mt-5 flex justify-end gap-2">
                 <button type="button" autoFocus className={BTN} disabled={deleting} onClick={() => setToDelete(null)}>Cancel</button>
                 <button type="button" className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700 disabled:opacity-60" disabled={deleting} onClick={confirmDelete}>{deleting ? "Deleting..." : "Delete"}</button>

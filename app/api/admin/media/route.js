@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { getSession } from "@/lib/auth";
 import siteMedia from "@/lib/siteMedia.generated.json";
+import { revalidatePath } from "next/cache";
+import { clearUsage } from "@/lib/mediaUsage";
 import { DRIVER, UPLOAD_DIR, displayName, isValidKey, kindOfName, publicUrlFor } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
@@ -167,7 +169,15 @@ export async function DELETE(request) {
       if (path.relative(UPLOAD_DIR, full).startsWith("..")) return NextResponse.json({ error: "Not allowed." }, { status: 400 });
       fs.rmSync(full, { force: true });
     }
-    return NextResponse.json({ ok: true });
+    // Take the file off the website too, wherever a page used it.
+    let cleared = 0;
+    try {
+      cleared = await clearUsage(url);
+      if (cleared) revalidatePath("/", "layout");
+    } catch (error) {
+      console.error("[media-clear-usage]", error);
+    }
+    return NextResponse.json({ ok: true, cleared });
   } catch (error) {
     console.error("[media-delete]", error);
     return NextResponse.json({ error: "Could not delete the file. Please try again." }, { status: 500 });

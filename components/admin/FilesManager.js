@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { describeUsage, downloadFile, fetchUsage } from "@/lib/mediaClient";
 
 const TABS = [
   { id: "all", label: "All" },
@@ -58,6 +59,7 @@ export default function FilesManager() {
   const [viewer, setViewer] = useState(null);
   const [toDelete, setToDelete] = useState(null); // array of items
   const [deleting, setDeleting] = useState(false);
+  const [deleteUsage, setDeleteUsage] = useState(null); // null while checking, then { [url]: places[] }
   const [work, setWork] = useState(null); // { done, total, text }
   const [notes, setNotes] = useState({}); // url -> text after compress
   const [versions, setVersions] = useState({}); // url -> number, to refresh a thumbnail
@@ -182,16 +184,25 @@ export default function FilesManager() {
     flash(failed ? `${failed} could not be compressed. ${firstError}` : saved ? `Done. Saved ${formatSize(saved)} in total.` : "Done. These files were already well optimised.");
   }
 
+  function askDelete(list) {
+    setDeleteUsage(null);
+    setToDelete(list);
+    fetchUsage(list.map((it) => it.url)).then(setDeleteUsage);
+  }
+
   async function confirmDelete() {
     const list = toDelete || [];
     if (!list.length) return;
     setDeleting(true);
     let failed = 0;
+    let cleared = 0;
     const gone = new Set();
     for (const it of list) {
       try {
         const res = await fetch("/api/admin/media", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: it.url }) });
         if (!res.ok) throw new Error();
+        const json = await res.json().catch(() => ({}));
+        cleared += json.cleared || 0;
         gone.add(it.url);
       } catch {
         failed++;
@@ -206,7 +217,11 @@ export default function FilesManager() {
     setViewer((v) => (v && gone.has(v.url) ? null : v));
     setToDelete(null);
     setDeleting(false);
-    flash(failed ? `${failed} file(s) could not be deleted.` : gone.size === 1 ? "File deleted." : `${gone.size} files deleted.`);
+    flash(
+      failed
+        ? `${failed} file(s) could not be deleted.`
+        : `${gone.size === 1 ? "File deleted" : `${gone.size} files deleted`} for good.${cleared ? ` Removed from ${cleared} place${cleared === 1 ? "" : "s"} on the website.` : ""}`
+    );
   }
 
   async function copyLink(it) {
@@ -262,7 +277,7 @@ export default function FilesManager() {
           <span className="text-ink/50">{picked.length ? `${picked.length} selected (${formatSize(picked.reduce((n, it) => n + (it.size || 0), 0))})` : "Tick files to delete or compress many at once."}</span>
           <span className="flex-1" />
           <button type="button" className={BTN} disabled={!picked.length || Boolean(work)} onClick={() => compressList(picked)}>Make smaller</button>
-          <button type="button" className={`${BTN} text-red-600 hover:bg-red-50`} disabled={!picked.length || Boolean(work)} onClick={() => setToDelete(picked)}>Delete</button>
+          <button type="button" className={`${BTN} text-red-600 hover:bg-red-50`} disabled={!picked.length || Boolean(work)} onClick={() => askDelete(picked)}>Delete</button>
         </div>
       ) : null}
 
@@ -311,6 +326,15 @@ export default function FilesManager() {
                   {notes[it.url] ? <span className="block text-[11px] font-medium text-emerald-700">{notes[it.url]}</span> : null}
                 </span>
               </button>
+              <button
+                type="button"
+                onClick={() => downloadFile(it.url, it.name)}
+                aria-label={`Download ${it.name}`}
+                title="Download"
+                className={`absolute bottom-[3.2rem] flex h-7 w-7 items-center justify-center rounded-full bg-white text-ink shadow opacity-0 transition hover:bg-black/5 focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100 ${mine ? "right-10" : "right-1.5"}`}
+              >
+                <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 3.5v9m0 0L6.5 9M10 12.5 13.5 9M4 15.5h12" /></svg>
+              </button>
               {mine ? (
                 <>
                   <label
@@ -321,7 +345,7 @@ export default function FilesManager() {
                   </label>
                   <button
                     type="button"
-                    onClick={() => setToDelete([it])}
+                    onClick={() => askDelete([it])}
                     aria-label={`Delete ${it.name}`}
                     title="Delete"
                     className="absolute bottom-[3.2rem] right-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-red-600 text-white opacity-0 shadow transition hover:bg-red-700 focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
@@ -340,7 +364,7 @@ export default function FilesManager() {
           item={viewer}
           busy={Boolean(work)}
           onClose={() => setViewer(null)}
-          onDelete={() => setToDelete([viewer])}
+          onDelete={() => askDelete([viewer])}
           onCompress={() => compressList([viewer])}
           onCopy={() => copyLink(viewer)}
           version={versions[viewer.url]}
@@ -353,13 +377,28 @@ export default function FilesManager() {
         <Modal onClose={() => !deleting && setToDelete(null)} label="Delete files">
           <h3 className="text-base font-semibold text-ink">{toDelete.length === 1 ? "Delete this file?" : `Delete ${toDelete.length} files?`}</h3>
           <p className="mt-1 truncate text-sm text-ink/70">{toDelete.length === 1 ? toDelete[0].name : toDelete.slice(0, 3).map((i) => i.name).join(", ") + (toDelete.length > 3 ? ` and ${toDelete.length - 3} more` : "")}</p>
-          <p className="mt-2 text-sm leading-relaxed text-ink/60">They are removed from storage for good and cannot be brought back. If a page uses one, that spot will show empty.</p>
+          <UsageNotice list={toDelete} usage={deleteUsage} />
+          <p className="mt-3 text-sm leading-relaxed text-ink/60">This deletes the file from storage for good and removes it from the website wherever it is used. It cannot be brought back.</p>
           <div className="mt-5 flex justify-end gap-2">
             <button type="button" autoFocus className={BTN} disabled={deleting} onClick={() => setToDelete(null)}>Cancel</button>
             <button type="button" className={BTN_RED} disabled={deleting} onClick={confirmDelete}>{deleting ? "Deleting..." : "Delete"}</button>
           </div>
         </Modal>
       ) : null}
+    </div>
+  );
+}
+
+function UsageNotice({ list, usage }) {
+  if (!usage) return <p className="mt-3 text-sm text-ink/55" role="status">Checking where it is used...</p>;
+  const used = list.map((it) => ({ it, places: describeUsage(usage[it.url]) })).filter((x) => x.places.length);
+  if (!used.length) return <p className="mt-3 rounded-lg bg-black/5 px-3 py-2 text-sm text-ink/70">Not used on any page right now.</p>;
+  return (
+    <div className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900" role="alert">
+      <p className="font-medium">This file is in use on the website:</p>
+      <ul className="mt-1 max-h-40 list-disc space-y-0.5 overflow-auto ps-5">
+        {used.map(({ it, places }) => places.map((p, i) => <li key={`${it.url}-${i}`}>{list.length > 1 ? `${it.name}: ` : ""}{p}</li>))}
+      </ul>
     </div>
   );
 }
@@ -400,6 +439,15 @@ function Modal({ children, onClose, label, wide = false, z = 1000 }) {
 function Viewer({ item, busy, onClose, onDelete, onCompress, onCopy, version, note, suspended }) {
   const mine = item.source !== "site";
   const src = thumbSrc({ ...item, source: "viewer" }, version);
+  const [places, setPlaces] = useState(null);
+  useEffect(() => {
+    if (!mine) return undefined;
+    let live = true;
+    fetchUsage([item.url]).then((u) => live && setPlaces(describeUsage(u[item.url])));
+    return () => {
+      live = false;
+    };
+  }, [item.url, mine]);
   return (
     <Modal onClose={suspended ? () => {} : onClose} label="File details" wide>
       <div className="flex items-start justify-between gap-3">
@@ -424,7 +472,13 @@ function Viewer({ item, busy, onClose, onDelete, onCompress, onCopy, version, no
           <video src={src} controls playsInline preload="metadata" className="max-h-[60vh] max-w-full rounded-md bg-black" />
         )}
       </div>
+      {mine && places ? (
+        <p className={`mt-3 rounded-lg px-3 py-2 text-xs ${places.length ? "bg-amber-50 text-amber-900" : "bg-black/5 text-ink/65"}`}>
+          {places.length ? `Used in: ${places.join(", ")}` : "Not used on any page right now."}
+        </p>
+      ) : null}
       <div className="mt-4 flex flex-wrap justify-end gap-2">
+        <button type="button" className={BTN} onClick={() => downloadFile(item.url, item.name)}>Download</button>
         <button type="button" className={BTN} onClick={onCopy}>Copy link</button>
         <a href={item.url} target="_blank" rel="noopener noreferrer" className={BTN}>Open</a>
         {mine ? (
