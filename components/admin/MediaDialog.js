@@ -91,12 +91,25 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
         if (kindParam !== "all") params.set("kind", kindParam);
         if (q.trim()) params.set("q", q.trim());
         if (!reset && nextCursor) params.set("cursor", nextCursor);
-        const res = await fetch(`/api/admin/media?${params.toString()}`);
+        // Uploaded files and the files that are part of the website code, shown together.
+        const siteParams = new URLSearchParams(params);
+        siteParams.set("source", "site");
+        const [res, siteRes] = await Promise.all([
+          fetch(`/api/admin/media?${params.toString()}`),
+          reset ? fetch(`/api/admin/media?${siteParams.toString()}`).catch(() => null) : Promise.resolve(null),
+        ]);
         const json = await res.json().catch(() => ({}));
+        const siteJson = siteRes && siteRes.ok ? await siteRes.json().catch(() => ({})) : {};
         if (id !== reqId.current) return;
         if (!res.ok) throw new Error(json.error || "Could not load the files.");
-        const incoming = (json.items || []).filter((it) => allowed.includes(it.kind));
-        setItems((prev) => (reset ? incoming : [...prev, ...incoming]));
+        const incoming = [...(json.items || []), ...(siteJson.items || [])].filter((it) => allowed.includes(it.kind));
+        const newestFirst = (list) => {
+          const seen = new Set();
+          return list
+            .filter((it) => (seen.has(it.url) ? false : seen.add(it.url)))
+            .sort((a, b) => (a.uploadedAt < b.uploadedAt ? 1 : a.uploadedAt > b.uploadedAt ? -1 : 0));
+        };
+        setItems((prev) => newestFirst(reset ? incoming : [...prev, ...incoming]));
         setCursor(json.cursor || "");
         setHasMore(Boolean(json.hasMore));
       } catch (e) {
@@ -265,7 +278,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
                         <span className="relative flex aspect-square items-center justify-center overflow-hidden bg-black/5">
                           {it.kind === "image" ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={it.url} alt="" loading="lazy" className="h-full w-full object-cover" />
+                            <img src={it.source === "site" ? `/_next/image?url=${encodeURIComponent(it.url)}&w=256&q=60` : it.url} alt="" loading="lazy" className="h-full w-full object-cover" />
                           ) : it.kind === "video" ? (
                             <>
                               <video src={`${it.url}#t=0.5`} preload="metadata" muted playsInline className="h-full w-full object-cover" />
@@ -278,7 +291,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
                         </span>
                         <span className="block px-2.5 py-2">
                           <span className="block truncate text-xs font-medium text-ink" title={it.name}>{it.name}</span>
-                          <span className="block text-[11px] text-ink/50">{formatSize(it.size)}</span>
+                          <span className="block text-[11px] text-ink/50">{formatSize(it.size)}{it.source === "site" ? " · Site file" : ""}</span>
                         </span>
                       </button>
                     </li>

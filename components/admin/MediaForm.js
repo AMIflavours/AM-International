@@ -7,6 +7,7 @@ import ImageField from "@/components/admin/ImageField";
 import FileField from "@/components/admin/FileField";
 import { saveMedia, resetMedia } from "@/app/admin/(panel)/media/actions";
 import { SOCIAL_PLATFORMS } from "@/lib/mediaShared";
+import ResetZone from "@/components/admin/ResetZone";
 
 const FIELD =
   "h-10 w-full rounded-lg border border-black/10 bg-white px-3 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -112,7 +113,6 @@ export default function MediaForm({ initial, labels }) {
   }
 
   function reset() {
-    if (!window.confirm("Reset the catalogue, hero, links and client logos to the originals?")) return;
     startTransition(async () => {
       const res = await resetMedia();
       if (!res.ok) return setMessage({ type: "error", text: res.error });
@@ -446,12 +446,22 @@ export default function MediaForm({ initial, labels }) {
           <button type="button" disabled={pending} onClick={save} className="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-60">
             {pending ? "Saving..." : "Save changes"}
           </button>
-          <button type="button" disabled={pending} onClick={reset} className="rounded-lg border border-black/10 px-5 py-2.5 text-sm font-medium transition hover:bg-black/5 disabled:opacity-60">
-            Reset to originals
-          </button>
           {message ? <p role="status" className={`text-sm ${message.type === "error" ? "text-red-600" : "text-emerald-700"}`}>{message.text}</p> : null}
         </div>
       </div>
+
+      <ResetZone
+        items={[
+          {
+            id: "media",
+            label: "Reset this page to originals",
+            description: "Brings back the original catalogue, hero, links and client logos.",
+            confirm1: "Reset the catalogue, hero, links and client logos to the originals?",
+            onConfirm: reset,
+            disabled: pending,
+          },
+        ]}
+      />
     </div>
   );
 }

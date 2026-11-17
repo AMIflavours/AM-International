@@ -6,6 +6,7 @@ import StatIcon, { ICON_LABELS } from "@/components/StatIcons";
 import { saveSection, resetSection } from "@/app/admin/(panel)/content/actions";
 import { saveHomeStats, resetHomeStats } from "@/app/admin/(panel)/home/actions";
 import { ICON_IDS, MAX_STATS } from "@/lib/homeStats";
+import ResetZone from "@/components/admin/ResetZone";
 
 const FIELD =
   "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -57,7 +58,6 @@ export default function HomeForm({ intro, introEdited, stats, statsEdited }) {
   }
 
   function resetIntro() {
-    if (!window.confirm("Reset the introduction text (English and Arabic) to the original?")) return;
     startIntro(async () => {
       const res = await resetSection("intro");
       if (!res.ok) return setIntroMsg({ type: "error", text: res.error });
@@ -99,7 +99,6 @@ export default function HomeForm({ intro, introEdited, stats, statsEdited }) {
   }
 
   function resetStats() {
-    if (!window.confirm("Reset the statistics to the original six cards?")) return;
     startStats(async () => {
       const res = await resetHomeStats();
       if (!res.ok) return setStatsMsg({ type: "error", text: res.error });
@@ -136,11 +135,6 @@ export default function HomeForm({ intro, introEdited, stats, statsEdited }) {
           <button type="button" onClick={saveIntro} disabled={introPending} className={PRIMARY}>
             {introPending ? "Saving..." : "Save introduction"}
           </button>
-          {introEdited ? (
-            <button type="button" onClick={resetIntro} disabled={introPending} className={BTN}>
-              Reset to original
-            </button>
-          ) : null}
         </div>
         <Message message={introMsg} />
       </section>
@@ -241,14 +235,30 @@ export default function HomeForm({ intro, introEdited, stats, statsEdited }) {
           <button type="button" onClick={saveStats} disabled={statsPending} className={PRIMARY}>
             {statsPending ? "Saving..." : "Save statistics"}
           </button>
-          {statsEdited ? (
-            <button type="button" onClick={resetStats} disabled={statsPending} className={BTN}>
-              Reset to original
-            </button>
-          ) : null}
         </div>
         <Message message={statsMsg} />
       </section>
+
+      <ResetZone
+        items={[
+          introEdited && {
+            id: "intro",
+            label: "Reset introduction",
+            description: "Brings back the original introduction text (English and Arabic).",
+            confirm1: "Reset the introduction text (English and Arabic) to the original?",
+            onConfirm: resetIntro,
+            disabled: introPending,
+          },
+          statsEdited && {
+            id: "stats",
+            label: "Reset statistics",
+            description: "Brings back the original six statistics cards.",
+            confirm1: "Reset the statistics to the original six cards?",
+            onConfirm: resetStats,
+            disabled: statsPending,
+          },
+        ]}
+      />
     </div>
   );
 }

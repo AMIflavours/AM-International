@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "node:fs";
 import path from "node:path";
 import { getSession } from "@/lib/auth";
+import siteMedia from "@/lib/siteMedia.generated.json";
 import { DRIVER, UPLOAD_DIR, displayName, isValidKey, kindOfName, publicUrlFor } from "@/lib/storage";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +23,14 @@ export async function GET(request) {
   const q = String(params.get("q") || "").trim().toLowerCase().slice(0, 80);
   const cursor = params.get("cursor") || "";
   const keep = (item) => item.kind && (kind === "all" || item.kind === kind) && (!q || item.name.toLowerCase().includes(q));
+
+  // Files that are part of the website code (public folder). Small list, so no paging.
+  if (params.get("source") === "site") {
+    const items = siteMedia
+      .map((f) => ({ url: encodeURI(`/${f.path}`), name: f.name, kind: f.kind, size: f.size, uploadedAt: f.date, source: "site" }))
+      .filter(keep);
+    return NextResponse.json({ items, cursor: "", hasMore: false });
+  }
 
   try {
     if (DRIVER === "blob") return NextResponse.json(await listBlob({ cursor, keep }));

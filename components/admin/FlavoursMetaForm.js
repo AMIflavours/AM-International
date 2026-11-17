@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { saveFlavoursMeta, resetFlavoursMeta } from "@/app/admin/(panel)/flavours/actions";
+import ResetZone from "@/components/admin/ResetZone";
 
 const FIELD =
   "h-10 w-full rounded-lg border border-black/10 bg-white px-3 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -28,7 +29,6 @@ export default function FlavoursMetaForm({ initial, groups }) {
   }
 
   function reset() {
-    if (!window.confirm("Reset every card to: available in both formats, no link?")) return;
     startTransition(async () => {
       const res = await resetFlavoursMeta();
       if (!res.ok) return setMessage({ type: "error", text: res.error });
@@ -100,12 +100,22 @@ export default function FlavoursMetaForm({ initial, groups }) {
           <button type="button" disabled={pending} onClick={save} className="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-60">
             {pending ? "Saving..." : "Save changes"}
           </button>
-          <button type="button" disabled={pending} onClick={reset} className="rounded-lg border border-black/10 px-5 py-2.5 text-sm font-medium transition hover:bg-black/5 disabled:opacity-60">
-            Reset to defaults
-          </button>
           {message ? <p role="status" className={`text-sm ${message.type === "error" ? "text-red-600" : "text-emerald-700"}`}>{message.text}</p> : null}
         </div>
       </div>
+
+      <ResetZone
+        items={[
+          {
+            id: "flavours-meta",
+            label: "Reset this page to defaults",
+            description: "Sets every card back to: available in both formats, no link.",
+            confirm1: "Reset every card to: available in both formats, no link?",
+            onConfirm: reset,
+            disabled: pending,
+          },
+        ]}
+      />
     </div>
   );
 }

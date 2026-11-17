@@ -4,6 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { saveFooterContact, resetFooterContact } from "@/app/admin/(panel)/footer/actions";
 import { MAX_ITEMS } from "@/lib/footerContact";
+import ResetZone from "@/components/admin/ResetZone";
 
 const FIELD =
   "h-10 w-full rounded-lg border border-black/10 bg-white px-3 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -93,7 +94,6 @@ export default function FooterContactForm({ initial, edited, address }) {
   }
 
   function reset() {
-    if (!window.confirm("Go back to the single phone number and email from the site text?")) return;
     startTransition(async () => {
       const res = await resetFooterContact();
       if (!res.ok) return setMessage({ type: "error", text: res.error });
@@ -127,17 +127,25 @@ export default function FooterContactForm({ initial, edited, address }) {
         <button type="button" onClick={save} disabled={pending} className={PRIMARY}>
           {pending ? "Saving..." : "Save footer contacts"}
         </button>
-        {edited ? (
-          <button type="button" onClick={reset} disabled={pending} className={BTN}>
-            Reset to original
-          </button>
-        ) : null}
       </div>
       {message ? (
         <p role="status" className={`rounded-lg px-4 py-2.5 text-sm ${message.type === "ok" ? "bg-emerald-50 text-emerald-800" : "bg-red-50 text-red-700"}`}>
           {message.text}
         </p>
       ) : null}
+
+      <ResetZone
+        items={[
+          edited && {
+            id: "footer",
+            label: "Reset footer contacts",
+            description: "Goes back to the single phone number and email from the site text.",
+            confirm1: "Go back to the single phone number and email from the site text?",
+            onConfirm: reset,
+            disabled: pending,
+          },
+        ]}
+      />
     </div>
   );
 }

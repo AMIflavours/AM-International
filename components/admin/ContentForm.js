@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import ImageField from "@/components/admin/ImageField";
 import FileField from "@/components/admin/FileField";
 import { saveSection, resetSection } from "@/app/admin/(panel)/content/actions";
+import ResetZone from "@/components/admin/ResetZone";
 
 const FIELD =
   "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -49,7 +50,6 @@ export default function ContentForm({ section, defaults, initial, hasOverrides }
   }
 
   function reset() {
-    if (!window.confirm("Reset this section to the original text? Your changes in it will be removed.")) return;
     setMessage(null);
     startTransition(async () => {
       const res = await resetSection(section);
@@ -183,16 +183,26 @@ export default function ContentForm({ section, defaults, initial, hasOverrides }
           <button type="button" disabled={pending} onClick={save} className="rounded-lg bg-brand-orange px-5 py-2.5 text-sm font-medium text-white transition hover:opacity-90 disabled:opacity-60">
             {pending ? "Saving..." : "Save changes"}
           </button>
-          {hasOverrides ? (
-            <button type="button" disabled={pending} onClick={reset} className="rounded-lg border border-black/10 px-5 py-2.5 text-sm font-medium transition hover:bg-black/5 disabled:opacity-60">
-              Reset to original
-            </button>
-          ) : null}
           {message ? (
             <p role="status" className={`text-sm ${message.type === "error" ? "text-red-600" : "text-emerald-700"}`}>{message.text}</p>
           ) : null}
         </div>
       </div>
+
+      {hasOverrides ? (
+        <ResetZone
+          items={[
+            {
+              id: "section",
+              label: "Reset this page to original",
+              description: "Removes every change you made on this page and brings back the original text.",
+              confirm1: "Reset this section to the original text? Your changes in it will be removed.",
+              onConfirm: reset,
+              disabled: pending,
+            },
+          ]}
+        />
+      ) : null}
     </div>
   );
 }
