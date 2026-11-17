@@ -68,6 +68,8 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
   const [kind, setKind] = useState(kinds.length === 1 ? kinds[0] : "all");
   const [picked, setPicked] = useState("");
   const [progress, setProgress] = useState(null);
+  const [toDelete, setToDelete] = useState(null);
+  const [deleting, setDeleting] = useState(false);
   const inputRef = useRef(null);
   const closeRef = useRef(null);
   const dialogRef = useRef(null);
@@ -168,12 +170,39 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
     setProgress(0);
     try {
       const url = await upload(file, (p) => setProgress(p));
-      onSelect(url); // the new file is used right away, and shown in the preview
-      setView("preview");
+      if (view === "library") {
+        // The new file joins the library at the top and is selected, ready for "Use selected".
+        const kindOf = kindOfUrl(url);
+        setItems((prev) => [{ url, name: fileName(url) || file.name, kind: kindOf, size: file.size, uploadedAt: new Date().toISOString() }, ...prev.filter((it) => it.url !== url)]);
+        setPicked(url);
+      } else {
+        onSelect(url); // Replace in the preview: used right away
+      }
     } catch (e) {
       setError(e.message || "Upload failed.");
     } finally {
       setProgress(null);
+    }
+  }
+
+  async function confirmDelete() {
+    const target = toDelete;
+    if (!target) return;
+    setDeleting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/admin/media", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: target.url }) });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || "Could not delete the file.");
+      setItems((prev) => prev.filter((it) => it.url !== target.url));
+      if (picked === target.url) setPicked("");
+      if (value === target.url) onRemove();
+      setToDelete(null);
+    } catch (e) {
+      setError(e.message || "Could not delete the file.");
+      setToDelete(null);
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -249,7 +278,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
                   ))}
                 </div>
               ) : null}
-              <button type="button" className={BTN_PRIMARY} disabled={busy} onClick={() => inputRef.current?.click()}>Upload new</button>
+              <button type="button" className={BTN_PRIMARY} disabled={busy} onClick={() => inputRef.current?.click()}>Upload from device</button>
             </div>
 
             <div className="min-h-[260px] flex-1 overflow-auto px-5 py-4">
@@ -259,7 +288,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
               {!items.length && !loading && !error ? (
                 <div className="flex h-full min-h-[200px] flex-col items-center justify-center text-center text-sm text-ink/55">
                   <p>No files yet.</p>
-                  <p className="mt-1">Click Upload new to add one.</p>
+                  <p className="mt-1">Click Upload from device to add one.</p>
                 </div>
               ) : null}
               <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -267,18 +296,18 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
                   const active = picked === it.url;
                   const isCurrent = value === it.url;
                   return (
-                    <li key={it.url}>
+                    <li key={it.url} className="group relative">
                       <button
                         type="button"
                         onClick={() => setPicked(it.url)}
                         onDoubleClick={() => { onSelect(it.url); setView("preview"); }}
                         aria-pressed={active}
-                        className={`group block w-full overflow-hidden rounded-lg border bg-white text-left transition ${active ? "border-brand-orange ring-2 ring-brand-orange" : "border-black/10 hover:border-black/25"}`}
+                        className={`block w-full overflow-hidden rounded-lg border bg-white text-left transition ${active ? "border-brand-orange ring-2 ring-brand-orange" : "border-black/10 hover:border-black/25"}`}
                       >
                         <span className="relative flex aspect-square items-center justify-center overflow-hidden bg-black/5">
                           {it.kind === "image" ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={it.source === "site" ? `/_next/image?url=${encodeURIComponent(it.url)}&w=256&q=60` : it.url} alt="" loading="lazy" className="h-full w-full object-cover" />
+                            <img src={it.source === "site" ? `/_next/image?url=${encodeURIComponent(it.url)}&w=256&q=75` : it.url} alt="" loading="lazy" className="h-full w-full object-cover" />
                           ) : it.kind === "video" ? (
                             <>
                               <video src={`${it.url}#t=0.5`} preload="metadata" muted playsInline className="h-full w-full object-cover" />
@@ -294,6 +323,18 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
                           <span className="block text-[11px] text-ink/50">{formatSize(it.size)}{it.source === "site" ? " · Site file" : ""}</span>
                         </span>
                       </button>
+                      {it.source !== "site" ? (
+                        <button
+                          type="button"
+                          onClick={() => setToDelete(it)}
+                          disabled={busy || deleting}
+                          aria-label={`Delete ${it.name}`}
+                          title="Delete"
+                          className="absolute left-1.5 top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-red-600 text-white opacity-0 shadow transition hover:bg-red-700 focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
+                        >
+                          <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M5 10h10" /></svg>
+                        </button>
+                      ) : null}
                     </li>
                   );
                 })}
@@ -305,7 +346,7 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 border-t border-black/10 px-5 py-3.5">
-              <p className="text-xs text-ink/50">Click a file to select it. Double click to use it right away.</p>
+              <p className="text-xs text-ink/50">Click a file to select it. Double click to use it right away. Hover a file to delete it.</p>
               <div className="flex gap-2">
                 {value ? <button type="button" className={BTN} disabled={busy} onClick={() => setView("preview")}>Back to preview</button> : null}
                 <button type="button" className={BTN} disabled={busy} onClick={onClose}>Cancel</button>
@@ -314,6 +355,19 @@ function DialogBody({ view: startView = "preview", onClose, value, kinds = ["ima
             </div>
           </>
         )}
+        {toDelete ? (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/45 p-4" role="alertdialog" aria-modal="true" aria-labelledby="del-title">
+            <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl">
+              <h3 id="del-title" className="text-base font-semibold text-ink">Delete this file?</h3>
+              <p className="mt-1 truncate text-sm text-ink/70" title={toDelete.name}>{toDelete.name}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink/60">It is removed from storage for good and cannot be brought back. If a page uses it, that spot will show empty.</p>
+              <div className="mt-5 flex justify-end gap-2">
+                <button type="button" autoFocus className={BTN} disabled={deleting} onClick={() => setToDelete(null)}>Cancel</button>
+                <button type="button" className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700 disabled:opacity-60" disabled={deleting} onClick={confirmDelete}>{deleting ? "Deleting..." : "Delete"}</button>
+              </div>
+            </div>
+          </div>
+        ) : null}
         <input ref={inputRef} type="file" accept={acceptList} onChange={handleFile} className="hidden" tabIndex={-1} />
       </div>
     </div>

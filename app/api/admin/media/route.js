@@ -125,3 +125,51 @@ async function listR2({ cursor, keep }) {
   const hasMore = offset + PAGE < all.length;
   return { items, cursor: hasMore ? String(offset + PAGE) : "", hasMore };
 }
+
+// Deletes one uploaded file from storage for good. Files that are part of the website code cannot be deleted here.
+//   DELETE /api/admin/media   body: { url }
+export async function DELETE(request) {
+  const session = await getSession(SECTIONS);
+  if (!session) return NextResponse.json({ error: "Please log in again." }, { status: 401 });
+
+  let url = "";
+  try {
+    url = String((await request.json())?.url || "");
+  } catch {}
+  if (!url) return NextResponse.json({ error: "No file given." }, { status: 400 });
+
+  try {
+    if (DRIVER === "blob") {
+      const u = new URL(url);
+      const key = decodeURIComponent(u.pathname.replace(/^\/+/, ""));
+      // Any picture, PDF or video in our own Blob store (admin uploads live under uploads/).
+      if (!u.hostname.endsWith(".public.blob.vercel-storage.com") || !kindOfName(key)) {
+        return NextResponse.json({ error: "This file cannot be deleted here." }, { status: 400 });
+      }
+      const { del } = await import("@vercel/blob");
+      await del(url);
+    } else if (DRIVER === "r2") {
+      const base = publicUrlFor("");
+      const key = url.startsWith(base) ? decodeURIComponent(url.slice(base.length)) : "";
+      if (!isValidKey(key)) return NextResponse.json({ error: "This file cannot be deleted here." }, { status: 400 });
+      const { R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET } = process.env;
+      const { S3Client, DeleteObjectCommand } = await import("@aws-sdk/client-s3");
+      const s3 = new S3Client({
+        region: "auto",
+        endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+        credentials: { accessKeyId: R2_ACCESS_KEY_ID, secretAccessKey: R2_SECRET_ACCESS_KEY },
+      });
+      await s3.send(new DeleteObjectCommand({ Bucket: R2_BUCKET, Key: key }));
+    } else {
+      const key = url.startsWith("/media/") ? decodeURIComponent(url.slice("/media/".length)) : "";
+      if (!isValidKey(key)) return NextResponse.json({ error: "This file cannot be deleted here." }, { status: 400 });
+      const full = path.join(UPLOAD_DIR, key);
+      if (path.relative(UPLOAD_DIR, full).startsWith("..")) return NextResponse.json({ error: "Not allowed." }, { status: 400 });
+      fs.rmSync(full, { force: true });
+    }
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    console.error("[media-delete]", error);
+    return NextResponse.json({ error: "Could not delete the file. Please try again." }, { status: 500 });
+  }
+}

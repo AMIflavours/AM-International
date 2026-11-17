@@ -1,16 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { UPLOADS_ENABLED, UPLOADS_OFF_MESSAGE } from "@/lib/uploadSwitch";
+import { useState } from "react";
 import { uploadFile } from "@/lib/uploadClient";
 import MediaDialog from "@/components/admin/MediaDialog";
 
 const MAX_SIDE = 2200; // longest side in pixels, plenty for full width hero images
 const QUALITY = 0.82; // WebP quality: visually the same as the original for photos and logos
-
-function formatSize(bytes) {
-  return bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
-}
 
 // Shrinks the image in the browser before upload: resized if very large, converted to WebP
 // (keeps transparency). If anything fails, or the result is not smaller, the original is used.
@@ -40,36 +35,11 @@ async function optimise(file) {
 }
 
 export default function ImageField({ label, value, onChange, hint }) {
-  const inputRef = useRef(null);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  const [note, setNote] = useState("");
   const [dialog, setDialog] = useState(null); // null | "preview" | "library"
 
   // Used by the popup for its own Replace and Upload new buttons.
   async function uploadOptimised(file, onProgress) {
     return uploadFile(await optimise(file), onProgress);
-  }
-
-  async function handleFile(event) {
-    const original = event.target.files?.[0];
-    event.target.value = "";
-    if (!original) return;
-
-    setError("");
-    setNote("");
-    setBusy(true);
-    try {
-      const file = await optimise(original);
-      const url = await uploadFile(file);
-      onChange(url);
-      setDialog("preview"); // show the uploaded picture in the popup
-      if (file !== original) setNote(`Optimised: ${formatSize(original.size)} to ${formatSize(file.size)}`);
-    } catch (e) {
-      setError(e.message || "Upload failed.");
-    } finally {
-      setBusy(false);
-    }
   }
 
   return (
@@ -93,23 +63,10 @@ export default function ImageField({ label, value, onChange, hint }) {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => {
-                if (!UPLOADS_ENABLED) { setError(UPLOADS_OFF_MESSAGE); return; }
-                inputRef.current?.click();
-              }}
-              disabled={busy}
-              aria-disabled={!UPLOADS_ENABLED}
-              className={"rounded-lg border border-black/10 px-3 py-1.5 text-sm transition disabled:opacity-60 " + (UPLOADS_ENABLED ? "hover:bg-black/5" : "cursor-not-allowed bg-black/5 text-ink/35")}
-            >
-              {busy ? "Optimising and uploading..." : value ? "Replace image" : "Upload image"}
-            </button>
-            <button
-              type="button"
-              disabled={busy}
               onClick={() => setDialog("library")}
-              className="rounded-lg border border-black/10 px-3 py-1.5 text-sm transition hover:bg-black/5 disabled:opacity-60"
+              className="rounded-lg border border-black/10 px-3 py-1.5 text-sm transition hover:bg-black/5"
             >
-              Media library
+              {value ? "Replace image" : "Upload image"}
             </button>
             {value ? (
               <button type="button" onClick={() => onChange("")} className="rounded-lg px-3 py-1.5 text-sm text-red-600 transition hover:bg-red-50">
@@ -118,11 +75,8 @@ export default function ImageField({ label, value, onChange, hint }) {
             ) : null}
           </div>
           <p className="mt-1.5 text-xs text-ink/50">{hint || "JPG, PNG, WebP or AVIF. Images are optimised automatically."}</p>
-          {note ? <p role="status" className="mt-1 text-xs text-emerald-700">{note}</p> : null}
-          {error ? <p role="alert" className="mt-1 text-xs text-red-600">{error}</p> : null}
         </div>
       </div>
-      <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={handleFile} className="hidden" />
       <MediaDialog
         open={dialog !== null}
         view={dialog || "preview"}

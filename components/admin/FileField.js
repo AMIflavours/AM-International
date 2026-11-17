@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { uploadFile } from "@/lib/uploadClient";
-import { UPLOADS_ENABLED, UPLOADS_OFF_MESSAGE } from "@/lib/uploadSwitch";
 import MediaDialog from "@/components/admin/MediaDialog";
 
 const INPUT =
@@ -21,27 +20,7 @@ function kindsFor(accept) {
 // Upload a file (PDF, video) straight to storage, pick one from the Media Library, or paste an
 // existing link. After an upload, or on Preview, a popup shows the file with Replace and Remove.
 export default function FileField({ label, value, onChange, accept, hint, noUpload = false }) {
-  const inputRef = useRef(null);
-  const [progress, setProgress] = useState(null);
-  const [error, setError] = useState("");
   const [dialog, setDialog] = useState(null); // null | "preview" | "library"
-
-  async function handleFile(event) {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (!file) return;
-    setError("");
-    setProgress(0);
-    try {
-      const url = await uploadFile(file, (percent) => setProgress(percent));
-      onChange(url);
-      setDialog("preview");
-    } catch (e) {
-      setError(e.message || "Upload failed.");
-    } finally {
-      setProgress(null);
-    }
-  }
 
   return (
     <div>
@@ -49,24 +28,9 @@ export default function FileField({ label, value, onChange, accept, hint, noUplo
       <div className="flex flex-wrap items-center gap-3">
         <input value={value || ""} onChange={(e) => onChange(e.target.value)} className={`${INPUT} min-w-0 flex-1`} aria-label={label} />
         {noUpload ? null : (
-          <>
-            <input ref={inputRef} type="file" accept={accept} onChange={handleFile} className="hidden" />
-            <button
-              type="button"
-              disabled={progress !== null}
-              aria-disabled={!UPLOADS_ENABLED}
-              onClick={() => {
-                if (!UPLOADS_ENABLED) { setError(UPLOADS_OFF_MESSAGE); return; }
-                inputRef.current?.click();
-              }}
-              className={BTN + (UPLOADS_ENABLED ? "" : " cursor-not-allowed bg-black/5 text-ink/35 hover:bg-black/5")}
-            >
-              {progress !== null ? `Uploading ${progress}%` : "Upload file"}
-            </button>
-            <button type="button" disabled={progress !== null} onClick={() => setDialog("library")} className={BTN}>
-              Media library
-            </button>
-          </>
+          <button type="button" onClick={() => setDialog("library")} className={BTN}>
+            {value ? "Replace file" : "Upload file"}
+          </button>
         )}
         {value ? (
           <button type="button" onClick={() => setDialog("preview")} className="text-sm text-brand-orange hover:underline">
@@ -75,7 +39,6 @@ export default function FileField({ label, value, onChange, accept, hint, noUplo
         ) : null}
       </div>
       {hint ? <p className="mt-1 text-xs text-ink/50">{hint}</p> : null}
-      {error ? <p className="mt-1 text-xs text-red-600">{error}</p> : null}
       <MediaDialog
         open={dialog !== null}
         view={dialog || "preview"}
