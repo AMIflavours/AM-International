@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
-import { allowedPages } from "@/lib/adminPages";
+import { allowedPages, ALL_PAGES } from "@/lib/adminPages";
 import { getOverrides } from "@/lib/siteContent";
 import { getLayout } from "@/lib/sectionLayout";
 import { LAYOUT_PAGES } from "@/lib/sectionRegistry";
@@ -18,8 +18,20 @@ export default async function PagesHub() {
     return m ? Boolean(overrides[m[1]]) : false;
   };
 
+  const lockedPages = ALL_PAGES.filter((p) => !pages.some((a) => a.id === p.id));
   const website = pages.filter((p) => p.id !== "sitewide");
   const wide = pages.filter((p) => p.id === "sitewide");
+
+  const LockedCard = ({ page }) => (
+    <li className="flex flex-col rounded-xl border border-dashed border-black/10 bg-white/60 p-5 opacity-70" aria-disabled="true">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-[17px] font-bold text-brand-navy/60">{page.label}</h3>
+        <span className="shrink-0 rounded-full bg-black/[0.05] px-2.5 py-1 text-[11px] font-medium text-ink/55">Locked</span>
+      </div>
+      <p className="mt-1.5 text-[13px] leading-5 text-ink/50">{page.blurb}</p>
+      <p className="mt-4 text-[12px] text-ink/55">You do not have access to this. Ask the owner if you need it.</p>
+    </li>
+  );
 
   const Card = ({ page }) => (
     <li className="flex flex-col rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-brand-orange/40 hover:shadow-md">
@@ -71,14 +83,20 @@ export default async function PagesHub() {
         {website.map((p) => (
           <Card key={p.id} page={p} />
         ))}
+        {lockedPages.filter((p) => p.id !== "sitewide").map((p) => (
+          <LockedCard key={p.id} page={p} />
+        ))}
       </ul>
 
-      {wide.length ? (
+      {wide.length || lockedPages.some((p) => p.id === "sitewide") ? (
         <>
           <h2 className="mb-3 mt-10 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/45">On every page</h2>
           <ul className="grid gap-4 md:grid-cols-2">
             {wide.map((p) => (
               <Card key={p.id} page={p} />
+            ))}
+            {lockedPages.filter((p) => p.id === "sitewide").map((p) => (
+              <LockedCard key={p.id} page={p} />
             ))}
           </ul>
         </>

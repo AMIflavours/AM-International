@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { PRESETS } from "@/lib/teamShared";
-import { inviteMember, revokeInvite, updateMember, setMemberDisabled, removeMember } from "@/app/admin/(panel)/team/actions";
+import { inviteMember, startOwnershipTransfer, revokeInvite, updateMember, setMemberDisabled, removeMember } from "@/app/admin/(panel)/team/actions";
 
 const FIELD =
   "h-11 w-full rounded-lg border border-black/10 bg-white px-4 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -112,6 +112,96 @@ function InviteForm({ sections }) {
   );
 }
 
+function TransferForm() {
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [sure, setSure] = useState(false);
+  const [result, setResult] = useState(null);
+  const [copied, setCopied] = useState(false);
+  const [pending, start] = useTransition();
+
+  const submit = (e) => {
+    e.preventDefault();
+    setResult(null);
+    setCopied(false);
+    start(async () => {
+      const res = await startOwnershipTransfer({ email, name, password });
+      setResult(res);
+      if (res.ok) {
+        setEmail("");
+        setName("");
+        setPassword("");
+        setSure(false);
+      }
+    });
+  };
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(result.link);
+      setCopied(true);
+    } catch {}
+  };
+
+  return (
+    <div className={`${CARD} mt-6 border-brand-orange/30`}>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold text-brand-navy">Transfer ownership</h2>
+          <p className="mt-0.5 text-sm text-ink/60">Hand this admin over to another person. They get a link, set their own password and become the owner.</p>
+        </div>
+        {!open ? (
+          <button type="button" onClick={() => setOpen(true)} className={`${BTN} border border-brand-orange text-brand-orange hover:bg-brand-orange/10`}>Transfer ownership</button>
+        ) : null}
+      </div>
+
+      {open ? (
+        <form onSubmit={submit} className="mt-4 space-y-4">
+          <ul className="list-disc space-y-1 ps-5 text-xs text-ink/70">
+            <li>You stay the owner until the other person opens the link and sets a password.</li>
+            <li>Then they become the owner and control everything. You become a team member with full access, and they can change or remove you.</li>
+            <li>The link works once and expires in 3 days. You can cancel it any time under Pending invitations.</li>
+          </ul>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-ink/60">New owner&apos;s email</label>
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className={FIELD} placeholder="name@company.com" />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-ink/60">Their name (optional)</label>
+              <input value={name} onChange={(e) => setName(e.target.value)} className={FIELD} />
+            </div>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-ink/60">Your password (to confirm it is you)</label>
+            <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" className={FIELD} />
+          </div>
+          <label className="flex items-start gap-2 text-sm text-ink/80">
+            <input type="checkbox" checked={sure} onChange={(e) => setSure(e.target.checked)} className="mt-1 h-4 w-4 accent-[#e8731a]" />
+            <span>I understand that this person will become the owner of the whole admin.</span>
+          </label>
+          <div className="flex flex-wrap items-center gap-2">
+            <button type="submit" disabled={pending || !sure} className={`${BTN} bg-brand-orange text-white hover:opacity-90 disabled:opacity-50`}>{pending ? "Sending..." : "Send ownership link"}</button>
+            <button type="button" onClick={() => setOpen(false)} className={`${BTN} border border-black/10`}>Close</button>
+          </div>
+          {result && !result.ok ? <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{result.error}</p> : null}
+          {result?.ok ? (
+            <div className="space-y-2 rounded-lg bg-emerald-50 px-3 py-3 text-sm text-emerald-900">
+              <p>{result.emailed ? "Ownership link emailed. The same link is below if you want to share it another way." : "Link created, but no email was sent (email is not set up or failed). Copy the link and send it yourself."}</p>
+              <div className="flex gap-2">
+                <input readOnly value={result.link} onFocus={(e) => e.target.select()} className="h-10 min-w-0 flex-1 rounded-lg border border-emerald-200 bg-white px-3 text-xs" />
+                <button type="button" onClick={copy} className={`${BTN} border border-emerald-300 bg-white`}>{copied ? "Copied" : "Copy"}</button>
+              </div>
+              <p className="text-xs">Shown only now. Expires in {result.days} days.</p>
+            </div>
+          ) : null}
+        </form>
+      ) : null}
+    </div>
+  );
+}
+
 function MemberCard({ member, sections }) {
   const [picked, setPicked] = useState(member.sections);
   const [msg, setMsg] = useState(null);
@@ -178,6 +268,7 @@ export default function TeamPanel({ sections, owners, members, invites, currentI
   return (
     <div>
       <InviteForm sections={sections} />
+      <TransferForm />
 
       <h2 className="mt-10 text-lg font-semibold text-brand-navy">Pending invitations</h2>
       {invites.length === 0 ? (
@@ -187,9 +278,12 @@ export default function TeamPanel({ sections, owners, members, invites, currentI
           {invites.map((inv) => (
             <div key={inv.key} className={`${CARD} flex flex-wrap items-center justify-between gap-3 py-3`}>
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-brand-navy">{inv.email}</p>
+                <p className="truncate text-sm font-medium text-brand-navy">
+                  {inv.email}
+                  {inv.kind === "owner" ? <span className="ms-2 rounded-full bg-brand-orange/15 px-2 py-0.5 text-[11px] font-semibold text-brand-orange">Ownership transfer</span> : null}
+                </p>
                 <p className="text-xs text-ink/60">
-                  {inv.sections.map(labelOf).join(", ")} · {inv.expired ? "Expired" : `Expires ${new Date(inv.expiresAt).toLocaleDateString("en-GB")}`}
+                  {inv.kind === "owner" ? "Becomes the owner" : inv.sections.map(labelOf).join(", ")} · {inv.expired ? "Expired" : `Expires ${new Date(inv.expiresAt).toLocaleDateString("en-GB")}`}
                 </p>
               </div>
               <form action={revokeInvite}>
@@ -212,7 +306,7 @@ export default function TeamPanel({ sections, owners, members, invites, currentI
             <span className="rounded-full bg-brand-navy/10 px-2.5 py-0.5 text-xs font-medium text-brand-navy">Owner, full access</span>
           </div>
         ))}
-        {members.length === 0 ? <p className="text-sm text-ink/60">No invited members yet.</p> : null}
+        {members.length === 0 ? <p className="text-sm text-ink/60">No team members yet.</p> : null}
         {members.map((m) => (
           <MemberCard key={m.id} member={m} sections={sections} />
         ))}

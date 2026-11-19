@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { allowedPages, findOwner, SITE_WIDE } from "@/lib/adminPages";
+import { allowedPages, ALL_PAGES, findOwner, SITE_WIDE } from "@/lib/adminPages";
 import PageWorkspace from "@/components/admin/PageWorkspace";
 import HelpBot from "@/components/admin/HelpBot";
 import HighlightTarget from "@/components/admin/HighlightTarget";
@@ -94,16 +94,40 @@ const ADMIN = [
 // Sidebar model: flat links, plus "tree" entries for pages (a page and its sections).
 function buildGroups(sections, isOwner) {
   const okItem = (i) => (i.ownerOnly ? isOwner : i.section ? sections.includes(i.section) : true);
-  const pages = allowedPages(sections, isOwner);
-  const regular = pages.filter((p) => p.id !== SITE_WIDE.id);
-  const wide = pages.find((p) => p.id === SITE_WIDE.id);
-  const groups = [{ items: TOP.filter(okItem) }];
-  if (regular.length) {
-    groups.push({ title: "Pages", items: [{ href: "/admin/content", label: "All pages", icon: "content", exact: true }, ...regular.map((p) => ({ tree: p }))] });
-  }
-  if (wide) groups.push({ title: "Site wide", items: [{ tree: wide }] });
-  groups.push({ title: "Admin", items: ADMIN.filter(okItem) });
+  const mark = (i) => ({ ...i, locked: !okItem(i) });
+  const allowed = allowedPages(sections, isOwner);
+  // Every page is listed. A page the person has no access to stays visible but locked (greyed, not clickable).
+  const treeFor = (p) => {
+    const hit = allowed.find((a) => a.id === p.id);
+    return hit ? { tree: hit } : { tree: { ...p, sections: [] }, locked: true };
+  };
+  const regular = ALL_PAGES.filter((p) => p.id !== SITE_WIDE.id).map(treeFor);
+  const wide = ALL_PAGES.filter((p) => p.id === SITE_WIDE.id).map(treeFor);
+  const groups = [{ items: TOP.map(mark) }];
+  groups.push({ title: "Pages", items: [{ href: "/admin/content", label: "All pages", icon: "content", exact: true }, ...regular] });
+  groups.push({ title: "Site wide", items: wide });
+  groups.push({ title: "Admin", items: ADMIN.map(mark) });
   return groups.filter((g) => g.items.length);
+}
+
+/* ---------- locked entry: visible, but the person has no access ---------- */
+function LockedItem({ icon, label }) {
+  return (
+    <li>
+      <span
+        aria-disabled="true"
+        title="You do not have access to this. Ask the owner."
+        className="flex h-8 cursor-not-allowed select-none items-center gap-3 rounded-lg px-3 text-[13.5px] font-medium text-white/30"
+      >
+        <Icon name={icon} className="shrink-0 text-white/25" />
+        <span className="flex-1 truncate">{label}</span>
+        <svg viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-label="Locked" className="shrink-0 text-white/35">
+          <rect x="4.5" y="9" width="11" height="7.5" rx="1.6" />
+          <path d="M7 9V6.8a3 3 0 0 1 6 0V9" />
+        </svg>
+      </span>
+    </li>
+  );
 }
 
 function isActive(pathname, href) {
@@ -177,6 +201,7 @@ function Sidebar({ groups, pathname, user, logoutAction, onNavigate, onSearch, i
             {g.title ? <p className="px-3 pb-1 text-[11px] font-medium uppercase tracking-[0.12em] text-white/40">{g.title}</p> : null}
             <ul className="space-y-0.5">
               {g.items.map((item) => {
+                if (item.locked) return <LockedItem key={item.tree?.id || item.href} icon={item.tree ? item.tree.icon : item.icon} label={item.tree ? item.tree.short || item.tree.label : item.label} />;
                 if (item.tree) return <TreeItem key={item.tree.id} page={item.tree} pathname={pathname} onNavigate={onNavigate} />;
                 const active = item.exact ? pathname === item.href : isActive(pathname, item.href);
                 return (
@@ -323,7 +348,7 @@ export default function AdminShell({ user, sections = [], isOwner = true, logout
   const flat = useMemo(
     () =>
       groups.flatMap((g) =>
-        g.items.flatMap((i) => (i.tree ? i.tree.sections.map((sec) => ({ href: sec.href, label: `${i.tree.label}: ${sec.label}`, icon: i.tree.icon })) : [i])),
+        g.items.filter((i) => !i.locked).flatMap((i) => (i.tree ? i.tree.sections.map((sec) => ({ href: sec.href, label: `${i.tree.label}: ${sec.label}`, icon: i.tree.icon })) : [i])),
       ),
     [groups],
   );

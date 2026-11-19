@@ -1,12 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import bcrypt from "bcryptjs";
 import { and, eq, like } from "drizzle-orm";
 import { getDb, schema } from "@/db";
 import { getSession } from "@/lib/auth";
 import { cleanSections } from "@/lib/teamShared";
 import { EMAIL_RE, INVITE_DAYS, hashToken, newToken, siteOrigin } from "@/lib/team";
-import { sendInviteEmail } from "@/lib/mailer";
+import { sendInviteEmail, sendOwnershipEmail } from "@/lib/mailer";
 import { logActivity } from "@/lib/activity";
 
 async function owner() {
@@ -55,6 +56,51 @@ export async function inviteMember(input) {
   } catch (error) {
     console.error("[team] invite failed", error);
     return { ok: false, error: "Could not create the invite. Try again." };
+  }
+}
+
+const TRANSFER_DAYS = 3;
+
+// The owner enters the new owner's email and confirms with their own password.
+// Nothing changes until the other person opens the link and sets a password.
+export async function startOwnershipTransfer(input) {
+  const session = await owner();
+  if (!session) return { ok: false, error: "Only the owner can transfer ownership." };
+  const db = getDb();
+  if (!db) return { ok: false, error: "Database is not configured." };
+
+  const email = String(input?.email || "").trim().toLowerCase();
+  const name = String(input?.name || "").trim().slice(0, 120);
+  const password = String(input?.password || "");
+  if (!EMAIL_RE.test(email)) return { ok: false, error: "Enter a valid email address." };
+  if (email === String(session.email).toLowerCase()) return { ok: false, error: "That is your own email. Enter the new owner's email." };
+  if (!password) return { ok: false, error: "Enter your own password to confirm." };
+
+  try {
+    const me = await db.select().from(schema.adminUsers).where(eq(schema.adminUsers.id, session.id)).limit(1);
+    if (!me[0] || !(await bcrypt.compare(password, me[0].passwordHash))) return { ok: false, error: "Your password is not correct." };
+
+    const existing = await db.select().from(schema.adminUsers).where(eq(schema.adminUsers.email, email)).limit(1);
+    if (existing[0]?.role === "admin") return { ok: false, error: "This person is already an owner." };
+
+    // Only one ownership transfer can be open at a time.
+    const open = await db.select().from(schema.siteContent).where(like(schema.siteContent.key, "invite:%"));
+    for (const row of open) {
+      if (row.value?.kind === "owner") await db.delete(schema.siteContent).where(eq(schema.siteContent.key, row.key));
+    }
+
+    const token = newToken();
+    const expiresAt = new Date(Date.now() + TRANSFER_DAYS * 86400000).toISOString();
+    await putKey(db, `invite:${hashToken(token)}`, { kind: "owner", email, name, sections: [], expiresAt, invitedBy: session.email });
+
+    const link = `${await siteOrigin()}/admin/invite/${token}`;
+    const mail = await sendOwnershipEmail({ to: email, name, link, invitedBy: session.name || session.email, days: TRANSFER_DAYS });
+    revalidatePath("/admin/team");
+    await logActivity(session, "Started an ownership transfer to", email, "team");
+    return { ok: true, link, emailed: mail.sent, days: TRANSFER_DAYS };
+  } catch (error) {
+    console.error("[team] ownership transfer failed", error);
+    return { ok: false, error: "Could not start the transfer. Try again." };
   }
 }
 

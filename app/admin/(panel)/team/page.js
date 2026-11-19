@@ -33,6 +33,7 @@ export default async function TeamPage() {
   const invites = inviteRows
     .map((r) => ({
       key: r.key,
+      kind: r.value.kind || "member",
       email: r.value.email,
       name: r.value.name,
       sections: r.value.sections || [],
@@ -45,7 +46,7 @@ export default async function TeamPage() {
     <div className="mx-auto max-w-5xl">
       <h1 className="text-2xl font-bold text-brand-navy">Team and access</h1>
       <p className="mt-1 text-sm text-ink/60">
-        Invite people by email and choose exactly which sections they can edit. Only the owner sees this page.
+        Invite people by email and choose exactly which sections each person can open. Only the owner can use this page. The owner can also hand over ownership to someone else.
       </p>
       <TeamPanel sections={SECTIONS} owners={owners} members={members} invites={invites} currentId={session.id} />
     </div>
