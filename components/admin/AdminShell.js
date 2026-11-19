@@ -3,9 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { allowedPages, findOwner, SITE_WIDE } from "@/lib/adminPages";
 import PageWorkspace from "@/components/admin/PageWorkspace";
+import HelpBot from "@/components/admin/HelpBot";
+import HighlightTarget from "@/components/admin/HighlightTarget";
 
 /* ---------- icons (18px, 1.6 stroke, one visual family) ---------- */
 const P = {
@@ -434,6 +436,10 @@ export default function AdminShell({ user, sections = [], isOwner = true, logout
       </div>
 
       <Palette open={palette} onClose={() => setPalette(false)} flat={flat} />
+      <HelpBot />
+      <Suspense fallback={null}>
+        <HighlightTarget />
+      </Suspense>
     </div>
   );
 }
