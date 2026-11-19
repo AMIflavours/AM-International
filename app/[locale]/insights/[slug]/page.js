@@ -1,3 +1,4 @@
+import { seoMeta, seoSuffix } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
   const post = await getPostBySlug(slug, locale);
   return {
-    title: post ? `${post.title} | A.M International` : "Insights | A.M International",
+    title: post ? `${post.title} | ${await seoSuffix(locale)}` : (await seoMeta(locale, "insights")).title,
     description: post?.excerpt || undefined,
   };
 }

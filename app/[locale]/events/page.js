@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import Header from "@/components/Header";
 import { getLayout, shown } from "@/lib/sectionLayout";
 import Footer from "@/components/Footer";
@@ -16,9 +17,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  return {
-    title: locale === "ar" ? "الفعاليات | A.M International" : "Events | A.M International",
-  };
+  return seoMeta(locale, "events");
 }
 
 export default async function EventsPage({ params }) {

@@ -5,12 +5,11 @@ import CertificateLink from "@/components/CertificateLink";
 import { getMedia } from "@/lib/media";
 import { getItemLayout } from "@/lib/itemLayoutServer";
 import { arrange } from "@/lib/itemLayout";
-import { withCertImages } from "@/lib/certImages";
 
 // The badges (image, PDF certificate and name) are managed in the admin under Media and links.
 export default async function Certifications({ dict }) {
   const { certifications: all } = await getMedia();
-  const badges = withCertImages(arrange(await getItemLayout(), "home.certifications", all).map((x) => x.item));
+  const badges = arrange(await getItemLayout(), "home.certifications", all).map((x) => x.item);
   if (!badges.length) return null;
 
   return (

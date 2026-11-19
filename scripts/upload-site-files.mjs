@@ -14,6 +14,8 @@ import { put } from "@vercel/blob";
 import fs from "node:fs";
 import path from "node:path";
 import { MEDIA_DEFAULTS, mergeMedia, sanitizeMedia } from "../lib/mediaShared.js";
+import { FLAVOUR_IMAGES } from "../lib/flavoursImages.js";
+import { TEAM_IMAGES } from "../lib/teamImages.js";
 
 config({ path: ".env.local" });
 const APPLY = process.argv.includes("--apply");
@@ -35,6 +37,36 @@ const MIME = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "i
 const rows = await sql.query("select value from site_content where key = 'media'");
 const stored = rows[0]?.value || {};
 const media = mergeMedia(stored);
+// The first five badges used to be forced from code. Keep that exact look, then move them to Blob.
+const CERT_DEFAULT = MEDIA_DEFAULTS.certifications;
+media.certifications = media.certifications.map((c, i) => (i < CERT_DEFAULT.length && !/^https:/.test(c.image || "") ? { ...c, image: CERT_DEFAULT[i].image } : c));
+
+// Flavours & Fragrances photos/logos and About team photos: the admin text rows hold them per language.
+const contentRows = await sql.query("select key, value from site_content where key in ('flavoursPage','about')");
+const content = { flavoursPage: {}, about: {} };
+for (const r of contentRows) content[r.key] = r.value || {};
+const getAt = (o, pathArr) => pathArr.reduce((a, k) => (a == null ? undefined : a[k]), o);
+// tasks: { section, lang, path: [...], file }
+const tasks = [];
+for (const lang of ["en", "ar"]) {
+  for (const group of ["food", "fragrance"]) {
+    (FLAVOUR_IMAGES[group] || []).forEach((set, i) => {
+      const add = (field, file) => {
+        if (!file) return;
+        const cur = getAt(content.flavoursPage, [lang, group, "items", i, field]);
+        if (cur && !String(cur).startsWith("/")) return; // already changed in the admin or on Blob
+        tasks.push({ section: "flavoursPage", lang, path: [group, "items", i, field], file });
+      };
+      add("image", set.image);
+      set.logos.forEach((l, n) => add(`logo${n + 1}Image`, l));
+    });
+  }
+  TEAM_IMAGES.forEach((file, i) => {
+    const cur = getAt(content.about, [lang, "team", i, "image"]);
+    if (cur && !String(cur).startsWith("/")) return;
+    tasks.push({ section: "about", lang, path: ["team", i, "image"], file });
+  });
+}
 
 // Every text value in the settings that is a website file path (starts with / and exists in public/).
 const found = new Map(); // path -> true
@@ -45,8 +77,9 @@ function walk(node) {
   else if (node && typeof node === "object") Object.values(node).forEach(walk);
 }
 walk(media);
+for (const t of tasks) if (fs.existsSync(path.join(PUBLIC, t.file))) found.set(t.file, true);
 
-console.log(`Website files used by the settings: ${found.size}`);
+console.log(`Website files used by the settings and pages: ${found.size}`);
 let bytes = 0;
 for (const f of found.keys()) bytes += fs.statSync(path.join(PUBLIC, f)).size;
 console.log(`Total size: ${(bytes / 1024 / 1024).toFixed(1)} MB`);
@@ -79,6 +112,41 @@ function swap(node) {
   if (Array.isArray(node)) return node.map(swap);
   if (node && typeof node === "object") return Object.fromEntries(Object.entries(node).map(([k, v]) => [k, swap(v)]));
   return node;
+}
+
+const setAt = (root, pathArr, value, lenFor) => {
+  let node = root;
+  for (let i = 0; i < pathArr.length - 1; i++) {
+    const k = pathArr[i];
+    const nextIsIndex = typeof pathArr[i + 1] === "number";
+    if (node[k] == null || typeof node[k] !== "object") node[k] = nextIsIndex ? [] : {};
+    node = node[k];
+    if (Array.isArray(node)) {
+      const want = lenFor(pathArr.slice(0, i + 1));
+      while (node.length < want) node.push({});
+      for (let j = 0; j < node.length; j++) if (node[j] == null || typeof node[j] !== "object") node[j] = {};
+    }
+  }
+  node[pathArr[pathArr.length - 1]] = value;
+};
+const lenFor = (p) => (p[p.length - 1] === "items" ? Math.max(FLAVOUR_IMAGES[p[0]]?.length || 0, 0) : p[p.length - 1] === "team" ? TEAM_IMAGES.length : 0);
+let contentChanged = 0;
+for (const t of tasks) {
+  const url = map.get(t.file);
+  if (!url) continue;
+  const root = (content[t.section][t.lang] ||= {});
+  // A saved list shorter or longer than the page is ignored by the site, so rebuild it at full length.
+  setAt(root, t.path, url, lenFor);
+  contentChanged++;
+}
+if (contentChanged) {
+  for (const key of ["flavoursPage", "about"]) {
+    await sql.query(
+      "insert into site_content (key, value, updated_at) values ($1, $2::jsonb, now()) on conflict (key) do update set value = excluded.value, updated_at = now()",
+      [key, JSON.stringify(content[key])]
+    );
+  }
+  console.log(`Saved ${contentChanged} page pictures (Flavours & Fragrances, About team).`);
 }
 
 if (map.size === 0) {

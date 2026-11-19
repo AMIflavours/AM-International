@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import { getDictionary } from "@/lib/getDictionary";
 import Header from "@/components/Header";
 import { getLayout, shown } from "@/lib/sectionLayout";
@@ -11,13 +12,7 @@ import ContactCta from "@/components/ContactCta";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  return {
-    title: locale === "ar" ? "اتصل بنا | A.M International" : "Contact Us | A.M International",
-    description:
-      locale === "ar"
-        ? "تواصل مع فريق A.M International للنكهات والعطور."
-        : "Talk to the A.M International team about flavours, fragrances and tailored ingredient solutions.",
-  };
+  return seoMeta(locale, "contact");
 }
 
 export default async function ContactPage({ params }) {

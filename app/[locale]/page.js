@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import ScrollFx from "@/components/ScrollFx";
 import Header from "@/components/Header";
 import { getLayout, shown } from "@/lib/sectionLayout";
@@ -21,6 +22,11 @@ import { arrange } from "@/lib/itemLayout";
 
 // Safety net: home refreshes at least once a minute even if a manual refresh is missed.
 export const revalidate = 60;
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  return seoMeta(locale, "home");
+}
 
 export default async function Home({ params }) {
   const { locale } = await params;

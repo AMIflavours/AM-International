@@ -1,7 +1,7 @@
 import VideoFab from "@/components/VideoFab";
 import { getMedia } from "@/lib/media";
 
-const WHATSAPP_NUMBER = "923228445661";
+const DEFAULT_WHATSAPP_NUMBER = "923228445661";
 
 function WhatsAppIcon() {
   return (
@@ -13,7 +13,7 @@ function WhatsAppIcon() {
 
 export default async function WhatsAppButton({ dict, video = false }) {
   const { assets } = await getMedia();
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(dict.whatsapp.message)}`;
+  const href = `https://wa.me/${String(dict.whatsapp.number || DEFAULT_WHATSAPP_NUMBER).replace(/\D/g, "")}?text=${encodeURIComponent(dict.whatsapp.message)}`;
 
   return (
     <>

@@ -1,6 +1,5 @@
 "use client";
 
-import { CERT_IMAGES } from "@/lib/certImages";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import ImageField from "@/components/admin/ImageField";
@@ -412,7 +411,7 @@ export default function MediaForm({ initial, labels }) {
                 </span>
               </div>
               <div className="space-y-4">
-                {i < CERT_IMAGES.length ? null : <ImageField label="Badge picture" value={c.image} onChange={(v) => setCert(i, { image: v })} />}
+                <ImageField label="Badge picture" value={c.image} onChange={(v) => setCert(i, { image: v })} />
                 <FileField label="Certificate PDF (opens when the badge is clicked)" value={c.pdf} onChange={(v) => setCert(i, { pdf: v })} accept="application/pdf" hint="Upload a PDF, or paste a link. Leave empty for a badge that is only a picture." />
                 <div>
                   <label className={LABEL}>Name (for screen readers and the download file name)</label>

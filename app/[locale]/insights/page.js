@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import Header from "@/components/Header";
 import { getLayout, shown } from "@/lib/sectionLayout";
 import InsightsHero from "@/components/InsightsHero";
@@ -12,9 +13,7 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  return {
-    title: locale === "ar" ? "الرؤى | A.M International" : "Insights | A.M International",
-  };
+  return seoMeta(locale, "insights");
 }
 
 export default async function InsightsPage({ params }) {

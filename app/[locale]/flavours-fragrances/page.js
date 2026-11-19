@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import { getDictionary } from "@/lib/getDictionary";
 import { getFlavoursMeta } from "@/lib/flavoursMeta";
 import { toCardMeta } from "@/lib/flavoursData";
@@ -14,13 +15,7 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  return {
-    title: locale === "ar" ? "النكهات والعطور | A.M International" : "Flavours & Fragrances | A.M International",
-    description:
-      locale === "ar"
-        ? "استكشف حلول النكهات والعطور من A.M International والقطاعات التي نخدمها."
-        : "Explore A.M International flavour and fragrance solutions and the industries we serve.",
-  };
+  return seoMeta(locale, "flavours");
 }
 
 export default async function FlavoursFragrancesPage({ params }) {

@@ -1,5 +1,6 @@
 import Roll from "@/components/Roll";
 import Reveal from "@/components/Reveal";
+import { telHref } from "@/lib/footerContact";
 
 export default function ContactDirect({ dict }) {
   const c = dict.contactPage.direct;
@@ -19,13 +20,13 @@ export default function ContactDirect({ dict }) {
         <Reveal delay={320} className="mt-9 flex flex-col items-center justify-center gap-4 md:mt-12 md:flex-row md:gap-14 text-[14px] leading-[22px] xl:text-[max(15px,calc(20*var(--u)))] xl:leading-[calc(30*var(--u))]">
           <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <span className="font-bold">{c.call}</span>
-            <a href="tel:+923004018352" dir="ltr" className="underline-offset-4 transition-opacity hover:opacity-90"><Roll>+92 300 4018 352</Roll></a>
-            <span className="hidden h-6 w-px bg-white md:block" aria-hidden="true" />
-            <a href="tel:+923218404292" dir="ltr" className="underline-offset-4 transition-opacity hover:opacity-90"><Roll>+92 321 8404 292</Roll></a>
+            {c.phone1 ? <a href={telHref(c.phone1)} dir="ltr" className="underline-offset-4 transition-opacity hover:opacity-90"><Roll>{c.phone1}</Roll></a> : null}
+            {c.phone1 && c.phone2 ? <span className="hidden h-6 w-px bg-white md:block" aria-hidden="true" /> : null}
+            {c.phone2 ? <a href={telHref(c.phone2)} dir="ltr" className="underline-offset-4 transition-opacity hover:opacity-90"><Roll>{c.phone2}</Roll></a> : null}
           </p>
           <p className="flex flex-wrap items-center justify-center gap-x-3">
             <span className="font-bold">{c.email}</span>
-            <a href="mailto:sales@aminternational.pk" className="underline-offset-4 transition-opacity hover:opacity-90"><Roll>sales@aminternational.pk</Roll></a>
+            {c.emailAddress ? <a href={`mailto:${c.emailAddress}`} className="underline-offset-4 transition-opacity hover:opacity-90"><Roll>{c.emailAddress}</Roll></a> : null}
           </p>
         </Reveal>
       </div>

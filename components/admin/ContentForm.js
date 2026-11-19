@@ -6,6 +6,7 @@ import ImageField from "@/components/admin/ImageField";
 import FileField from "@/components/admin/FileField";
 import { saveSection, resetSection } from "@/app/admin/(panel)/content/actions";
 import ResetZone from "@/components/admin/ResetZone";
+import { hintFor } from "@/lib/adminHints";
 
 const FIELD =
   "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-sm text-ink outline-none transition focus:border-brand-orange focus:ring-4 focus:ring-brand-orange/15";
@@ -26,6 +27,12 @@ function setIn(obj, path, value) {
 
 function getIn(obj, path) {
   return path.reduce((acc, k) => (acc == null ? undefined : acc[k]), obj);
+}
+
+function itemName(item) {
+  if (!item || typeof item !== "object") return "";
+  const v = item.title || item.heading || item.name || item.label || item.tag || item.city || "";
+  return typeof v === "string" ? v.slice(0, 40) : "";
 }
 
 const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
@@ -65,10 +72,6 @@ export default function ContentForm({ section, defaults, initial, hasOverrides }
     const key = path[path.length - 1];
 
     if (typeof node === "string") {
-      // Flavours & Fragrances category photos and logos are part of the website files (lib/flavoursImages.js).
-      if (section === "flavoursPage" && (key === "image" || /^logo\d+Image$/.test(String(key)))) return null;
-      // About page team photos are part of the website files (lib/teamImages.js).
-      if (section === "about" && path.includes("team") && key === "image") return null;
       if (/image$/i.test(String(key))) {
         const current = getIn(values.en, path) || "";
         return (
@@ -96,6 +99,7 @@ export default function ContentForm({ section, defaults, initial, hasOverrides }
       return (
         <div key={path.join(".")} className="py-3">
           <label className={LABEL}>{nice(key)}</label>
+          {hintFor(key) ? <p className="-mt-1 mb-1.5 text-xs text-ink/50">{hintFor(key)}</p> : null}
           <div className="grid gap-3 md:grid-cols-2">
             {["en", "ar"].map((lang) => (
               <Tag
@@ -142,7 +146,7 @@ export default function ContentForm({ section, defaults, initial, hasOverrides }
           <div className="mt-2 space-y-3">
             {node.map((item, i) => (
               <div key={i} className="rounded-lg border border-black/10 bg-[#fafafa] px-4 py-1">
-                <p className="pt-3 text-xs font-semibold uppercase tracking-wide text-brand-orange">Item {i + 1}</p>
+                <p className="pt-3 text-xs font-semibold uppercase tracking-wide text-brand-orange">Item {i + 1}{itemName(item) ? `: ${itemName(item)}` : ""}</p>
                 {renderNode(item, [...path, i], depth + 1)}
               </div>
             ))}

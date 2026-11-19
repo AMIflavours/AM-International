@@ -1,3 +1,4 @@
+import { seoMeta } from "@/lib/seo";
 import Header from "@/components/Header";
 import { getLayout, shown } from "@/lib/sectionLayout";
 import Footer from "@/components/Footer";
@@ -11,9 +12,7 @@ import { getDictionary } from "@/lib/getDictionary";
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  return {
-    title: locale === "ar" ? "من نحن | A.M International" : "About Us | A.M International",
-  };
+  return seoMeta(locale, "about");
 }
 
 export default async function AboutPage({ params }) {

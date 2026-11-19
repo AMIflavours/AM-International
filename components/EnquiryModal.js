@@ -334,7 +334,7 @@ export default function EnquiryModal({ dict, locale }) {
             <span className="eq-grab" aria-hidden="true" />
             <div className="eq-top">
               <span className="eq-mlogo">
-                <Image src="/images/logo/am-international-logo.png" alt="A.M International" width={1600} height={429} />
+                <Image src={assets.logo} alt="A.M International" width={1600} height={429} />
               </span>
               <span className="eq-count">
                 {done ? null : (
