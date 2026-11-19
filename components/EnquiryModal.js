@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
+import { useAssets } from "@/components/AssetsProvider";
 import { ENQUIRY_CSS } from "@/lib/enquiryStyles";
 
 const EMAIL_RE = /^\S+@\S+\.\S+$/;
@@ -50,6 +51,7 @@ function Option({ checked, onClick, role, i, note, children }) {
 }
 
 export default function EnquiryModal({ dict, locale }) {
+  const assets = useAssets();
   const t = dict.enquiryForm;
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -309,7 +311,7 @@ export default function EnquiryModal({ dict, locale }) {
         {/* ---------- side ---------- */}
         <aside className="eq-side">
           <span className="eq-logo">
-            <Image src="/images/logo/am-international-logo.png" alt="A.M International" width={1600} height={429} />
+            <Image src={assets.logo} alt="A.M International" width={1600} height={429} />
           </span>
           <p className="eq-side-eyebrow">{t.side.eyebrow}</p>
           <h2 className="eq-side-h">{t.side.heading}</h2>

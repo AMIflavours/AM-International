@@ -5,6 +5,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import Reveal from "@/components/Reveal";
+import { useAssets } from "@/components/AssetsProvider";
 import { COUNTRIES, POPULAR, flagUrl, countryName } from "@/lib/countries";
 
 const LABEL = "mb-2 block text-[12px] font-semibold uppercase tracking-[0.08em] text-ink/60 rtl:tracking-normal md:text-[13px]";
@@ -281,6 +282,7 @@ function IconInput({ icon, ...props }) {
 }
 
 export default function ContactForm({ dict }) {
+  const assets = useAssets();
   const c = dict.contactPage.form;
   const params = useParams();
   const locale = params?.locale === "ar" ? "ar" : "en";
@@ -342,7 +344,7 @@ export default function ContactForm({ dict }) {
 
       {/* Desktop photo half */}
       <div className="absolute inset-y-0 start-0 hidden w-[46.25%] lg:block">
-        <Image src="/images/contact/contact-form-bg.jpg" alt="" fill sizes="46vw" className="object-cover" />
+        <Image src={assets.contactFormBg} alt="" fill sizes="46vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent rtl:bg-gradient-to-l" />
       </div>
 

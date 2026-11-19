@@ -5,6 +5,7 @@ import Image from "next/image";
 import Mx from "@/components/Mx";
 import MxText from "@/components/MxText";
 import LocaleLink from "@/components/LocaleLink";
+import { getMedia } from "@/lib/media";
 
 function getSteps(dict) {
   return [
@@ -17,11 +18,12 @@ function getSteps(dict) {
 }
 export default async function Process({ dict }) {
   const IL = await getItemLayout();
+  const { assets } = await getMedia();
   const steps = arrange(IL, "home.process", getSteps(dict)).map((x) => x.item);
 
   return (
     <Mx as="section" className="relative overflow-hidden bg-brand-navy px-4 py-16 text-white sm:px-6 md:py-20 xl:px-0">
-      {partShown(IL, "home.processBg", 0) ? <Image src="/images/process/process-bg.png" alt="" fill sizes="100vw" className="mx-parallax object-cover animate-slow-zoom motion-reduce:animate-none" /> : null}
+      {partShown(IL, "home.processBg", 0) ? <Image src={assets.processBg} alt="" fill sizes="100vw" className="mx-parallax object-cover animate-slow-zoom motion-reduce:animate-none" /> : null}
       <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/80 via-black/20 to-brand-navy/70" aria-hidden="true" />
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" aria-hidden="true" />
 

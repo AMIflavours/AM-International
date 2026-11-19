@@ -2,6 +2,8 @@ import localFont from "next/font/local";
 import "../globals.css";
 import NavigationLoader from "@/components/NavigationLoader";
 import ScrollToTop from "@/components/ScrollToTop";
+import { AssetsProvider } from "@/components/AssetsProvider";
+import { getMedia } from "@/lib/media";
 
 // Self-hosted fonts (lib/fontfiles), so the build never needs Google Fonts.
 const dmSans = localFont({
@@ -29,12 +31,15 @@ export function generateStaticParams() {
 export default async function LocaleLayout({ children, params }) {
   const { locale } = await params;
   const dir = locale === "ar" ? "rtl" : "ltr";
+  const { assets } = await getMedia();
   const fontClass = locale === "ar" ? ibmPlexArabic.className : dmSans.className;
 
   return (
     <div lang={locale} dir={dir} className={fontClass}>
-      <ScrollToTop />
-      <NavigationLoader>{children}</NavigationLoader>
+      <AssetsProvider assets={assets}>
+        <ScrollToTop />
+        <NavigationLoader>{children}</NavigationLoader>
+      </AssetsProvider>
     </div>
   );
 }

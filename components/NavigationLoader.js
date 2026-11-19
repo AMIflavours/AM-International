@@ -3,6 +3,7 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useAssets } from "@/components/AssetsProvider";
 
 // First visit or refresh: minimum time the loader stays (ms since the page started loading).
 const FIRST_MIN_MS = 1300;
@@ -27,6 +28,7 @@ function Arcs({ className }) {
 }
 
 export default function NavigationLoader({ children }) {
+  const assets = useAssets();
   const router = useRouter();
   const pathname = usePathname();
   // Starts visible so it is part of the very first paint.
@@ -175,7 +177,7 @@ export default function NavigationLoader({ children }) {
           }`}
         >
           <Image
-  src="/images/logo/am-international-logo.png"
+  src={assets.logo}
   alt="A.M International"
   width={1600}
   height={429}

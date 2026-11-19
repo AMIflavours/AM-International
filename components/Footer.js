@@ -75,7 +75,7 @@ export default async function Footer({ dict, locale }) {
         <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1fr)_calc(637*var(--u))] xl:gap-0">
           <div className="ft-rise">
             <Image
-              src="/images/logo/am-international-logo.png"
+              src={media.assets.logo}
               alt="A.M International"
               width={1600}
               height={429}

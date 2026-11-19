@@ -97,7 +97,7 @@ export default async function Header({ dict, locale, active = "home" }) {
         <div className="mx-auto flex h-16 max-w-[1200px] items-center px-4 sm:px-6 xl:h-[calc(85*var(--u))] xl:max-w-[calc(1600*var(--u))] xl:px-0">
           <a href={`/${locale}`} aria-label="AM International home" className="shrink-0">
             <Image
-              src="/images/logo/am-international-logo.png"
+              src={media.assets.logo}
               alt="AM International"
               width={1600}
               height={429}

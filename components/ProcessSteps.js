@@ -3,20 +3,14 @@ import ProcessMedia from "@/components/ProcessMedia";
 import StepNumber from "@/components/StepNumber";
 import { getItemLayout } from "@/lib/itemLayoutServer";
 import { arrange, partShown } from "@/lib/itemLayout";
-
-// One video per step, in step order. They are part of the website files (public/videos).
-// Put "" for a step that has no video.
-const PROCESS_VIDEOS = [
-  "/videos/process-1.mp4",
-  "/videos/process-2.mp4",
-  "/videos/process-3.mp4",
-  "/videos/process-4.mp4",
-  "/videos/process-5.mp4",
-];
+import { getMedia } from "@/lib/media";
 
 export default async function ProcessSteps({ dict }) {
   const t = dict.processPage;
   const IL = await getItemLayout();
+  // One video per step, in step order. Set in the admin (Images and links).
+  const { assets } = await getMedia();
+  const PROCESS_VIDEOS = [1, 2, 3, 4, 5].map((n) => assets[`processVideo${n}`]);
   // Visible steps only (hidden, deleted and empty spare steps are skipped). Numbers and left/right sides
   // follow the visible order, so removing a step re-flows the page.
   const visible = arrange(IL, "process.steps", t.steps).filter(({ item }) => String(item.title || "").trim());

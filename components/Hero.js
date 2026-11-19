@@ -5,12 +5,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import CatalogueDownloadLink from "@/components/CatalogueDownloadLink";
 import { useMedia } from "@/components/MediaProvider";
+import { useAssets } from "@/components/AssetsProvider";
 import { resolveHref } from "@/lib/mediaShared";
 
 // Short intro (about 2 seconds) that plays first, then the hero video starts from the beginning.
-// The file lives in the website itself (public/videos), so it does not use Blob storage.
-const HERO_VIDEO = "/videos/hero-2.mp4";
-const INTRO_SRC = "/videos/hero-intro.mp4";
 
 /*
   Design artboard 1920. At xl+ every size is calc(N * var(--u)) with a floor,
@@ -19,6 +17,9 @@ const INTRO_SRC = "/videos/hero-intro.mp4";
 export default function Hero({ dict, locale }) {
   const isRtl = locale === "ar";
   const media = useMedia();
+  const assets = useAssets();
+  const HERO_VIDEO = assets.heroVideo;
+  const INTRO_SRC = assets.heroIntroVideo;
   const eyebrowWrapRef = useRef(null);
   const headingWrapRef = useRef(null);
   const taglineRef = useRef(null);

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import ImageField from "@/components/admin/ImageField";
 import FileField from "@/components/admin/FileField";
 import { saveMedia, resetMedia } from "@/app/admin/(panel)/media/actions";
-import { SOCIAL_PLATFORMS } from "@/lib/mediaShared";
+import { SOCIAL_PLATFORMS, ASSET_SLOTS } from "@/lib/mediaShared";
 import ResetZone from "@/components/admin/ResetZone";
 
 const FIELD =
@@ -156,6 +156,25 @@ export default function MediaForm({ initial, labels }) {
     <div className="mt-6 space-y-6">
       <Card title="Catalogue" note="The file visitors get from every Download Catalogue button.">
         <FileField label="Catalogue PDF" value={m.catalogue.pdf} onChange={(v) => setPath("catalogue", "pdf", v)} accept="application/pdf" hint="Upload a PDF, or paste a link." />
+      </Card>
+
+      <Card title="Site pictures and videos" note="The single pictures and videos of the website: logo, banners, backgrounds and videos. Upload a new one to replace it. Every page that uses it updates after you save.">
+        {[...new Set(ASSET_SLOTS.map((x) => x.group))].map((group) => (
+          <div key={group} className="rounded-lg border border-black/10 bg-[#fafafa] p-4">
+            <p className="mb-3 text-sm font-semibold text-brand-navy">{group}</p>
+            <div className="divide-y divide-black/5">
+              {ASSET_SLOTS.filter((x) => x.group === group).map((slot) => (
+                <div key={slot.id} className="py-3 first:pt-0 last:pb-0">
+                  {slot.kind === "video" ? (
+                    <FileField label={slot.label} value={m.assets[slot.id]} onChange={(v) => setPath("assets", slot.id, v)} accept="video/mp4,video/webm" hint={slot.hint || "MP4 or WebM video."} />
+                  ) : (
+                    <ImageField label={slot.label} value={m.assets[slot.id]} onChange={(v) => setPath("assets", slot.id, v)} hint={slot.hint || undefined} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </Card>
 
       <Card title="Event card pictures" note="How the picture sits inside every event card (Events page and home page). Pick one look for all cards.">

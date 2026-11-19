@@ -2,12 +2,14 @@ import Image from "next/image";
 import { getItemLayout } from "@/lib/itemLayoutServer";
 import { arrange, partShown } from "@/lib/itemLayout";
 import AboutReveal from "@/components/AboutReveal";
+import { getMedia } from "@/lib/media";
 
 /*
   Design artboard 1920. At xl+ every size is calc(N * var(--u)) with a floor,
   so the hero scales exactly like the Figma frame. Below xl the compact layout is kept.
 */
 export default async function AboutHero({ dict }) {
+  const { assets } = await getMedia();
   const IL = await getItemLayout();
   const on = (i) => partShown(IL, "about.hero", i);
   const t = dict.about;
@@ -47,7 +49,7 @@ export default async function AboutHero({ dict }) {
 <>
       <div className="relative h-[13.75rem] w-full overflow-hidden sm:h-[20rem] lg:h-auto lg:aspect-[1920/500]">
         <Image
-          src="/images/about/about-hero.jpg"
+          src={assets.aboutHero}
           alt=""
           fill
           priority

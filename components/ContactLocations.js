@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { LAND_RINGS } from "@/lib/landData";
 import Reveal from "@/components/Reveal";
+import { useAssets } from "@/components/AssetsProvider";
 
-const MAP_SRC = "/images/contact/contact-map.webp";
 
 // Pin positions as a percentage of the map image (1920 x 626 design crop)
 const PINS = [
@@ -302,6 +302,7 @@ function Pin({ pin, label, index, ready, active, onActive }) {
 }
 
 export default function ContactLocations({ dict }) {
+  const assets = useAssets();
   const c = dict.contactPage.locations;
   const [active, setActive] = useState(null);
   const [inView, setInView] = useState(false);
@@ -327,7 +328,7 @@ export default function ContactLocations({ dict }) {
 
   useEffect(() => {
     let dead = false;
-    buildPakistanLayer(MAP_SRC)
+    buildPakistanLayer(assets.contactMap)
       .then(({ canvas, url }) => {
         if (dead) return;
         canvas.className = "absolute inset-0 h-full w-full";
@@ -339,7 +340,7 @@ export default function ContactLocations({ dict }) {
     return () => {
       dead = true;
     };
-  }, []);
+  }, [assets.contactMap]);
 
   useEffect(() => {
     if (layer && holder.current && !holder.current.contains(layer.canvas)) {
@@ -373,7 +374,7 @@ export default function ContactLocations({ dict }) {
         <div className="relative aspect-[1920/626] w-full">
           {/* Original design image: shown as supplied until the animated layers are ready (and kept if they cannot be built) */}
           <Image
-            src={MAP_SRC}
+            src={assets.contactMap}
             alt="Map of Pakistan with A.M International office locations"
             fill
             sizes="100vw"
