@@ -22,6 +22,11 @@ if (!DB || (APPLY && !process.env.BLOB_READ_WRITE_TOKEN)) {
   console.error("Put DATABASE_URL" + (APPLY ? " and BLOB_READ_WRITE_TOKEN" : "") + " in .env.local first.");
   process.exit(1);
 }
+if (APPLY && !/^vercel_blob_rw_[^_\s]+_\S+$/.test(process.env.BLOB_READ_WRITE_TOKEN.trim())) {
+  console.error("The BLOB_READ_WRITE_TOKEN in .env.local does not look right.");
+  console.error("It must be one line like  BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxxxxxxx_xxxxxxxx  (copy it again from the Blob store page in Vercel, .env.local tab, Show secret).");
+  process.exit(1);
+}
 const sql = neon(DB);
 const PUBLIC = path.join(process.cwd(), "public");
 
@@ -76,6 +81,10 @@ function swap(node) {
   return node;
 }
 
+if (map.size === 0) {
+  console.log("\nNothing was uploaded, so nothing was saved. Fix the errors above and run again.");
+  process.exit(1);
+}
 const next = sanitizeMedia(swap(media));
 await sql.query(
   "insert into site_content (key, value, updated_at) values ('media', $1::jsonb, now()) on conflict (key) do update set value = excluded.value, updated_at = now()",
